@@ -6,7 +6,7 @@ A smart time and attendance management system that uses BLE beacons and a mobile
 
 If a detecting device enters a location that the beacons are placed at least three, the device reads how far each beacon is and calculates where the device is in place.
 
-The detecting device, a mobile phone generally, sends every entrance and exit log to the server and the server gathers all of the data and can provide them the useable information.
+The detecting device, a mobile phone generally, sends every entrance and exit log to the server and the server gathers all of the data and can provide them the useable information via its website or the mobile app.
 
 ## Todos
 
