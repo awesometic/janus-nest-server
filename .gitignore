@@ -187,3 +187,6 @@ dist
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,yarn,sass
+
+# Converted and/or compiled outputs
+public/*
