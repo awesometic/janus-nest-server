@@ -190,3 +190,6 @@ dist
 
 # Converted and/or compiled outputs
 public/*
+
+# I only use yarn for the package management
+package-lock.json
