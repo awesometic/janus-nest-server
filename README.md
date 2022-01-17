@@ -13,13 +13,27 @@ The detecting device, a mobile phone generally, sends every entrance and exit lo
 ### Environment
 
 - [ ] Express.js API server
-- [ ] Database on my personal server. Which one?
+- [x] MariaDB RDBMS on my development device
 - [x] BLE beacons, at least three
 - [ ] A mobile app that detects BLE beacons and communicates to the API server
+- [ ] Place the API server and the database on my personal server and connect my domain address
 
 ### Features
 
-- [ ] Migrate the old sources as possible as it can be
+- [ ] As much as the previous project could do
+- TBD
+
+### Plan
+
+- [x] Write an entity relationship diagram for the database
+- [ ] Connection between the API server and the database
+- [ ] Open some simple Restful API endpoints
+- [ ] Create a simple mobile app that can send a message to the API server
+- [ ] Detect all the three beacons using the mobile app and send a message to the API server
+- [ ] Implement set a location for the entry point of a place
+- [ ] Implement interfaces for managing places, beacons, accounts, permissions, departments on the mobile app
+- [ ] Data visualization
+- TBD
 
 ## Successor of the old gradutaion project
 
