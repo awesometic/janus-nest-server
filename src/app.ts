@@ -3,11 +3,19 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import {checkTableExists} from './repositories/database';
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// Check if there is a table in the database
+(async () => {
+  if (!(await checkTableExists())) {
+    throw new Error('Database table does not exist.');
+  }
+})();
 
 // view engine setup
 app.set('views', path.join(__dirname, '../../src/views'));
