@@ -26,7 +26,7 @@ The detecting device, a mobile phone generally, sends every entrance and exit lo
 ### Plan
 
 - [x] Write an entity relationship diagram for the database
-- [ ] Connection between the API server and the database
+- [x] Connection between the API server and the database
 - [ ] Open some simple Restful API endpoints
 - [ ] Create a simple mobile app that can send a message to the API server
 - [ ] Detect all the three beacons using the mobile app and send a message to the API server
