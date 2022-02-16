@@ -8,6 +8,10 @@ If a detecting device enters a location that the beacons are placed at least thr
 
 The detecting device, a mobile phone generally, sends every entrance and exit log to the server and the server gathers all of the data and can provide them the useable information via its website or the mobile app.
 
+## Database Entity Relationship Diagram
+
+Click here to see: [Current database ERD](docs/resources/janus_project_erd.png)
+
 ## Todos
 
 ### Environment
