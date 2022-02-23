@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,yarn,sass,macos,linux,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,node,yarn,sass,macos,linux,windows
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,yarn,macos,linux
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,node,yarn,macos,linux
 
 ### Linux ###
 *~
@@ -186,12 +185,6 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-### Sass ###
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
-
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -213,32 +206,6 @@ dist
 
 # Support for Project snippet scope
 
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
 ### yarn ###
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
@@ -256,7 +223,7 @@ $RECYCLE.BIN/
 # and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,yarn,sass,macos,linux,windows
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,yarn,macos,linux
 
 # Converted and/or compiled outputs
 public/*
