@@ -122,7 +122,7 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.development.local
+# .env.development.local # for local development, it is allowed for my project
 .env.test.local
 .env.production.local
 .env.local
