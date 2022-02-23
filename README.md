@@ -1,4 +1,4 @@
-# Janus Express Server
+# Janus Nest Server
 
 ## Janus project
 
@@ -16,7 +16,7 @@ Click here to see: [Current database ERD](docs/resources/janus_project_erd.png)
 
 ### Environment
 
-- [ ] Express.js API server
+- [ ] NestJS API server
 - [x] MariaDB RDBMS on my development device
 - [x] BLE beacons, at least three
 - [ ] A mobile app that detects BLE beacons and communicates to the API server
@@ -45,6 +45,6 @@ This project is a successor of [my old graduation project](https://github.com/aw
 
 It was working very well as our team expected and I thought that it'd be so interesting if I can work on this project again. But with my 5-years-later eyes, the old code is really spaghettied so I gave up maintaining the existing codes. It led me to start a new project. :sweat_smile:
 
-I believe it can be a really good chance to study modern **Node.js** with **Express.js**, **SASS** and **Typescript (ES6+)**. :smile:
+I believe it can be a really good chance to study modern **Node.js** with **NestJS**, **Typescript (ES6+)** and **TypeORM**. :smile:
 
 This project is made just **for fun**. Hope I would finish this big project again.
