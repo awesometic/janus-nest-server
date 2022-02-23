@@ -10,7 +10,95 @@ The detecting device, a mobile phone generally, sends every entrance and exit lo
 
 ## Database Entity Relationship Diagram
 
+> This ERD figure is needed to be edit, by the TypeORM generates
+
 Click here to see: [Current database ERD](docs/resources/janus_project_erd.png)
+
+The generated tables by the TypeORM entities.
+
+```none
+MariaDB [janus]> show tables;
++-----------------+
+| Tables_in_janus |
++-----------------+
+| beacon          |
+| department      |
+| entrance        |
+| permission      |
+| place           |
+| user            |
++-----------------+
+6 rows in set (0.003 sec)
+
+MariaDB [janus]> desc beacon;
++------------+------------------+------+-----+---------+----------------+
+| Field      | Type             | Null | Key | Default | Extra          |
++------------+------------------+------+-----+---------+----------------+
+| id         | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| macAddress | varchar(17)      | NO   |     | NULL    |                |
+| uuid       | varchar(32)      | NO   |     | NULL    |                |
+| major      | varchar(4)       | NO   |     | NULL    |                |
+| minor      | varchar(4)       | NO   |     | NULL    |                |
+| threshold  | int(10) unsigned | NO   |     | NULL    |                |
++------------+------------------+------+-----+---------+----------------+
+6 rows in set (0.003 sec)
+
+MariaDB [janus]> desc department;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20)      | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+2 rows in set (0.002 sec)
+
+MariaDB [janus]> desc entrance;
++--------------+------------------+------+-----+---------------------+----------------+
+| Field        | Type             | Null | Key | Default             | Extra          |
++--------------+------------------+------+-----+---------------------+----------------+
+| id           | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+| entranceTime | datetime         | NO   |     | current_timestamp() |                |
+| exitTime     | datetime         | NO   |     | current_timestamp() |                |
++--------------+------------------+------+-----+---------------------+----------------+
+3 rows in set (0.026 sec)
+
+MariaDB [janus]> desc permission;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20)      | NO   |     | NULL    |                |
+| level | int(11)          | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+3 rows in set (0.006 sec)
+
+MariaDB [janus]> desc place;
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(20)      | NO   |     | NULL    |                |
+| location | point            | NO   |     | NULL    |                |
+| beaconId | int(10) unsigned | YES  | MUL | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.024 sec)
+
+MariaDB [janus]> desc user;
++---------------+------------------+------+-----+---------------------+----------------+
+| Field         | Type             | Null | Key | Default             | Extra          |
++---------------+------------------+------+-----+---------------------+----------------+
+| id            | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+| permissionId  | int(10) unsigned | NO   | MUL | NULL                |                |
+| departmentId  | int(10) unsigned | NO   | MUL | NULL                |                |
+| email         | varchar(30)      | NO   |     | NULL                |                |
+| name          | varchar(30)      | NO   |     | NULL                |                |
+| password      | varchar(30)      | NO   |     | NULL                |                |
+| createTime    | datetime         | NO   |     | current_timestamp() |                |
+| lastLoginTime | datetime         | NO   |     | current_timestamp() |                |
+| entranceId    | int(10) unsigned | YES  | MUL | NULL                |                |
++---------------+------------------+------+-----+---------------------+----------------+
+9 rows in set (0.008 sec)
+```
 
 ## Todos
 
