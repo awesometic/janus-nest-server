@@ -19,6 +19,8 @@ export class Permission {
 
   @Column({
     type: "int",
+    width: 2,
+    unsigned: true,
   })
   level: number;
 }
