@@ -38,6 +38,7 @@ export class User {
 
   @Column({
     length: 30,
+    unique: true,
   })
   email: string;
 
