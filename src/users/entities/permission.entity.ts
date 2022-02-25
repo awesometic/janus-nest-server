@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Department } from "./department.entity";
 import { User } from "./user.entity";
 
 @Entity()
@@ -11,6 +12,9 @@ export class Permission {
 
   @OneToMany(type => User, user => user.permission)
   user: User[];
+
+  @ManyToOne(type => Department, department => department.permission)
+  department: Department;
 
   @Column({
     length: 20,
