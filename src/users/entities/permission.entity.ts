@@ -10,7 +10,7 @@ export class Permission {
   })
   id: number;
 
-  @OneToMany(type => User, user => user.permission)
+  @OneToMany(type => User, user => user.permission, { onDelete: "SET NULL" })
   user: User[];
 
   @ManyToOne(type => Department, department => department.permission)

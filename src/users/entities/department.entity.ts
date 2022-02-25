@@ -10,10 +10,10 @@ export class Department {
   })
   id: number;
 
-  @OneToMany(type => User, user => user.department)
+  @OneToMany(type => User, user => user.department, { onDelete: "SET NULL" })
   user: User[];
 
-  @OneToMany(type => Permission, permission => permission.department)
+  @OneToMany(type => Permission, permission => permission.department, { onDelete: "SET NULL" })
   permission: Permission[];
 
   @Column({
