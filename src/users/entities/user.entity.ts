@@ -25,18 +25,6 @@ export class User {
   place: Place[];
 
   @Column({
-    type: "int",
-    unsigned: true,
-  })
-  permissionId: number;
-
-  @Column({
-    type: "int",
-    unsigned: true,
-  })
-  departmentId: number;
-
-  @Column({
     length: 30,
     unique: true,
   })
