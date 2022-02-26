@@ -9,23 +9,17 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('/create')
-  createUser(
-    @Body() createUserDto: CreateUserDto
-  ){
+  createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
   @Post('/update')
-  updateUser(
-    @Body() updateUserDto: UpdateUserDto
-  ){
+  updateUser(@Body() updateUserDto: UpdateUserDto) {
     return this.usersService.updateUser(updateUserDto);
   }
 
   @Post('/remove')
-  removeUser(
-    @Body() removeUserDto: RemoveUserDto
-  ){
+  removeUser(@Body() removeUserDto: RemoveUserDto) {
     return this.usersService.removeUser(removeUserDto);
   }
 }

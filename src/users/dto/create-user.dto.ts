@@ -1,10 +1,17 @@
-import { Transform } from "class-transformer";
-import { IsEmail, IsInt, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
-import { Department } from "../entities/department.entity";
-import { Permission } from "../entities/permission.entity";
+import { Transform } from 'class-transformer';
+import {
+  IsEmail,
+  IsInt,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+import { Department } from '../entities/department.entity';
+import { Permission } from '../entities/permission.entity';
 
 export class CreateUserDto {
-
   @Transform(({ value }) => value.trim())
   @IsString()
   @IsEmail()

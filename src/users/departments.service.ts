@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateDepartmentDto } from "./dto/create-department.dto";
-import { RemoveDepartmentDto } from "./dto/remove-department.dto";
-import { Department } from "./entities/department.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateDepartmentDto } from './dto/create-department.dto';
+import { RemoveDepartmentDto } from './dto/remove-department.dto';
+import { Department } from './entities/department.entity';
 
 @Injectable()
 export class DepartmentsService {
@@ -12,15 +12,21 @@ export class DepartmentsService {
     private departmentRepository: Repository<Department>,
   ) {}
 
-  async createDepartment(createDepartmentDto: CreateDepartmentDto): Promise<Department> {
+  async createDepartment(
+    createDepartmentDto: CreateDepartmentDto,
+  ): Promise<Department> {
     const department = new Department();
     department.name = createDepartmentDto.name;
 
     return await this.departmentRepository.save(department);
   }
 
-  async removeDepartment(removeDepartmentDto: RemoveDepartmentDto): Promise<Department> {
-    const department = await this.findDepartmentByName(removeDepartmentDto.name);
+  async removeDepartment(
+    removeDepartmentDto: RemoveDepartmentDto,
+  ): Promise<Department> {
+    const department = await this.findDepartmentByName(
+      removeDepartmentDto.name,
+    );
 
     return await this.departmentRepository.remove(department);
   }

@@ -11,10 +11,8 @@ import { DepartmentsController } from './departments.controller';
 import { DepartmentsService } from './departments.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User, Permission, Department])
-  ],
+  imports: [TypeOrmModule.forFeature([User, Permission, Department])],
   controllers: [UsersController, PermissionsController, DepartmentsController],
-  providers: [UsersService, PermissionsService, DepartmentsService]
+  providers: [UsersService, PermissionsService, DepartmentsService],
 })
 export class UsersModule {}

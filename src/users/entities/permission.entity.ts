@@ -1,19 +1,27 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Department } from "./department.entity";
-import { User } from "./user.entity";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Department } from './department.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Permission {
   @PrimaryGeneratedColumn({
-    type: "int",
+    type: 'int',
     unsigned: true,
   })
   id: number;
 
-  @OneToMany(type => User, user => user.permission, { onDelete: "SET NULL" })
+  @OneToMany((type) => User, (user) => user.permission, {
+    onDelete: 'SET NULL',
+  })
   user: User[];
 
-  @ManyToOne(type => Department, department => department.permission)
+  @ManyToOne((type) => Department, (department) => department.permission)
   department: Department;
 
   @Column({
@@ -22,7 +30,7 @@ export class Permission {
   name: string;
 
   @Column({
-    type: "int",
+    type: 'int',
     width: 2,
     unsigned: true,
   })
