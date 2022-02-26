@@ -24,8 +24,8 @@ export class UsersController {
 
   @Post('/remove')
   removeUser(
-    @Body() deleteUserDto: RemoveUserDto
+    @Body() removeUserDto: RemoveUserDto
   ){
-    return this.usersService.removeUser(deleteUserDto);
+    return this.usersService.removeUser(removeUserDto);
   }
 }
