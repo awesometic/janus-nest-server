@@ -9,7 +9,7 @@ export class Entrance {
   })
   id: number;
 
-  @OneToMany(type => User, user => user.entrance)
+  @OneToMany(type => User, user => user.entrance, { onDelete: "SET NULL" })
   user: User[];
 
   @Column({
