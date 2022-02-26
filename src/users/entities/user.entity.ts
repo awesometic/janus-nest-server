@@ -1,6 +1,6 @@
 import { Entrance } from 'src/entrances/entities/entrance.entity';
 import { Place } from 'src/places/entities/place.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 import { Department } from './department.entity';
 import { Permission } from './permission.entity';
 
@@ -21,7 +21,8 @@ export class User {
   @ManyToOne(type => Permission, permission => permission.user)
   permission: Permission;
 
-  @ManyToMany(type => Place, place => place.user)
+  @ManyToMany(() => Place)
+  @JoinTable()
   place: Place[];
 
   @Column({

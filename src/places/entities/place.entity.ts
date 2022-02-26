@@ -13,9 +13,6 @@ export class Place {
   @ManyToOne(type => Beacon, beacon => beacon.place)
   beacon: Beacon;
 
-  @ManyToMany(type => User, user => user.place)
-  user: User[];
-
   @Column({
     length: 20
   })
