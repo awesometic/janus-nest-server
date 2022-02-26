@@ -18,6 +18,7 @@ export class Department {
 
   @Column({
     length: 20,
+    unique: true,
   })
   name: string;
 }
