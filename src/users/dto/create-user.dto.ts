@@ -1,5 +1,7 @@
 import { Transform } from "class-transformer";
-import { IsEmail, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsInt, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { Department } from "../entities/department.entity";
+import { Permission } from "../entities/permission.entity";
 
 export class CreateUserDto {
 
@@ -18,4 +20,12 @@ export class CreateUserDto {
   @IsString()
   @Matches(/^[a-zA-A0-9\d!@#$%^&*()]{8,30}$/)
   readonly password: string;
+
+  @IsInt()
+  @IsOptional()
+  readonly permission: Permission;
+
+  @IsInt()
+  @IsOptional()
+  readonly department: Department;
 }
