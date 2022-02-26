@@ -15,9 +15,12 @@ export class UsersService {
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
+
     user.email = createUserDto.email;
     user.name = createUserDto.name;
     user.password = createUserDto.password;
+    user.permission = createUserDto.permission;
+    user.department = createUserDto.department;
 
     // Check if the user already exists
     const existingUser = await this.userRepository.findOne(user.email);
@@ -33,14 +36,20 @@ export class UsersService {
 
     user.name = updateUserDto.name;
     user.password = updateUserDto.password;
+    user.permission = updateUserDto.permission;
+    user.department = updateUserDto.department;
 
     return await this.userRepository.save(user);
   }
 
-  async removeUser(deleteUserDto: RemoveUserDto): Promise<User> {
-    const user = await this.findUser(deleteUserDto.email);
+  async removeUser(removeUserDto: RemoveUserDto): Promise<User> {
+    const user = await this.findUser(removeUserDto.email);
 
-    return await this.userRepository.remove(user);
+    if (user.password == removeUserDto.password) {
+      return await this.userRepository.remove(user);
+    } else {
+      throw new UnprocessableEntityException('Password is incorrect');
+    }
   }
 
   async findUser(email: string): Promise<User> {
