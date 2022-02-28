@@ -9,6 +9,11 @@ import { Connection } from 'typeorm';
 import { PlacesModule } from './places/places.module';
 import { BeaconsModule } from './beacons/beacons.module';
 import { EntrancesModule } from './entrances/entrances.module';
+import {
+  utilities as nestWinstonModuleUtilieis,
+  WinstonModule,
+} from 'nest-winston';
+import * as winston from 'winston';
 
 @Module({
   imports: [
@@ -17,14 +22,25 @@ import { EntrancesModule } from './entrances/entrances.module';
       envFilePath: ['.env.development.local'],
     }),
     TypeOrmModule.forRoot(),
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console({
+          level: process.env.NODE_ENV === 'production' ? 'info' : 'silly',
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            nestWinstonModuleUtilieis.format.nestLike('App', {
+              prettyPrint: true,
+            }),
+          ),
+        }),
+      ],
+    }),
     UsersModule,
     PlacesModule,
     BeaconsModule,
     EntrancesModule,
   ],
-  controllers: [
-    AppController,
-  ],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
