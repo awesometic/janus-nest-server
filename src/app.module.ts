@@ -14,8 +14,7 @@ import {
   WinstonModule,
 } from 'nest-winston';
 import * as winston from 'winston';
-import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './exceptions/http.exception';
+import { ExceptionModule } from './exception/exception.module';
 
 @Module({
   imports: [
@@ -37,19 +36,14 @@ import { HttpExceptionFilter } from './exceptions/http.exception';
         }),
       ],
     }),
+    ExceptionModule,
     UsersModule,
     PlacesModule,
     BeaconsModule,
     EntrancesModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
