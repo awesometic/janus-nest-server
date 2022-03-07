@@ -1,26 +1,20 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Entrance {
   @PrimaryGeneratedColumn({
-    type: "int",
+    type: 'int',
     unsigned: true,
   })
   id: number;
 
-  @OneToMany(type => User, user => user.entrance, { onDelete: "SET NULL" })
+  @OneToMany((type) => User, (user) => user.entrance, { onDelete: 'SET NULL' })
   user: User[];
 
   @Column({
-    type: "datetime",
-    default: () => "CURRENT_TIMESTAMP",
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  entranceTime: Date;
-
-  @Column({
-    type: "datetime",
-    default: () => "CURRENT_TIMESTAMP",
-  })
-  exitTime: Date;
+  accessTime: Date;
 }
