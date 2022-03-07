@@ -5,10 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Beacon } from './entities/beacon.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Beacon]),
-  ],
+  imports: [TypeOrmModule.forFeature([Beacon])],
   controllers: [BeaconsController],
-  providers: [BeaconsService]
+  providers: [BeaconsService],
 })
 export class BeaconsModule {}

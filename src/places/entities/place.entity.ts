@@ -1,27 +1,27 @@
-import { Beacon } from "src/beacons/entities/beacon.entity";
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Point } from 'geojson';
+import { Beacon } from 'src/beacons/entities/beacon.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Place {
   @PrimaryGeneratedColumn({
-    type: "int",
+    type: 'int',
     unsigned: true,
   })
   id: number;
 
-  @ManyToOne(type => Beacon, beacon => beacon.place)
+  @ManyToOne((type) => Beacon, (beacon) => beacon.place)
   beacon: Beacon;
 
   @Column({
-    length: 20
+    length: 20,
   })
   name: string;
 
   @Column({
-    type: "point",
-    spatialFeatureType: "Point",
-    srid: 4326
+    type: 'point',
+    spatialFeatureType: 'Point',
+    srid: 4326,
   })
-  location: string;
+  location: Point;
 }

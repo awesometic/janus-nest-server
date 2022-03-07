@@ -1,15 +1,17 @@
-import { Place } from "src/places/entities/place.entity";
-import { Column, Entity, EntityColumnNotFound, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Place } from 'src/places/entities/place.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Beacon {
   @PrimaryGeneratedColumn({
-    type: "int",
+    type: 'int',
     unsigned: true,
   })
   id: number;
 
-  @OneToMany(type => Place, place => place.beacon)
+  @OneToMany((type) => Place, (place) => place.beacon, {
+    onDelete: 'SET NULL',
+  })
   place: Place[];
 
   @Column({
@@ -18,7 +20,7 @@ export class Beacon {
   macAddress: string;
 
   @Column({
-    type: "uuid",
+    type: 'uuid',
     length: 32,
   })
   uuid: string;
@@ -34,7 +36,7 @@ export class Beacon {
   minor: string;
 
   @Column({
-    type: "int",
+    type: 'int',
     unsigned: true,
   })
   threshold: number;

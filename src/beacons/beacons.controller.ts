@@ -1,34 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, LoggerService, Inject } from '@nestjs/common';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { BeaconsService } from './beacons.service';
 import { CreateBeaconDto } from './dto/create-beacon.dto';
+import { RemoveBeaconDto } from './dto/remove-beacon.dto';
 import { UpdateBeaconDto } from './dto/update-beacon.dto';
 
 @Controller('beacons')
 export class BeaconsController {
-  constructor(private readonly beaconsService: BeaconsService) {}
+  constructor(
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
+    private readonly beaconsService: BeaconsService,
+  ) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createBeaconDto: CreateBeaconDto) {
+    this.logger.debug(`Creating beacon ${JSON.stringify(createBeaconDto)}`);
+
     return this.beaconsService.create(createBeaconDto);
   }
 
-  @Get()
-  findAll() {
-    return this.beaconsService.findAll();
+  @Post('/update')
+  update(@Body() updateBeaconDto: UpdateBeaconDto) {
+    this.logger.debug(`Updating beacon ${JSON.stringify(updateBeaconDto)}`);
+
+    return this.beaconsService.update(updateBeaconDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.beaconsService.findOne(+id);
-  }
+  @Post('/remove')
+  remove(@Body() removeBeaconDto: RemoveBeaconDto) {
+    this.logger.debug(`Removing beacon ${JSON.stringify(removeBeaconDto)}`);
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBeaconDto: UpdateBeaconDto) {
-    return this.beaconsService.update(+id, updateBeaconDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.beaconsService.remove(+id);
+    return this.beaconsService.remove(removeBeaconDto);
   }
 }
