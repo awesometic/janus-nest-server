@@ -29,7 +29,7 @@ MariaDB [janus]> show tables;
 | user             |
 | user_place_place |
 +------------------+
-7 rows in set (0.049 sec)
+7 rows in set (0.002 sec)
 
 MariaDB [janus]> desc beacon;
 +------------+------------------+------+-----+---------+----------------+
@@ -51,17 +51,17 @@ MariaDB [janus]> desc department;
 | id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
 | name  | varchar(20)      | NO   | UNI | NULL    |                |
 +-------+------------------+------+-----+---------+----------------+
-2 rows in set (0.026 sec)
+2 rows in set (0.001 sec)
 
 MariaDB [janus]> desc entrance;
-+--------------+------------------+------+-----+---------------------+----------------+
-| Field        | Type             | Null | Key | Default             | Extra          |
-+--------------+------------------+------+-----+---------------------+----------------+
-| id           | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
-| entranceTime | datetime         | NO   |     | current_timestamp() |                |
-| exitTime     | datetime         | NO   |     | current_timestamp() |                |
-+--------------+------------------+------+-----+---------------------+----------------+
-3 rows in set (0.001 sec)
++------------+------------------+------+-----+---------------------+----------------+
+| Field      | Type             | Null | Key | Default             | Extra          |
++------------+------------------+------+-----+---------------------+----------------+
+| id         | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
+| accessTime | datetime         | NO   |     | current_timestamp() |                |
+| userId     | int(10) unsigned | YES  | MUL | NULL                |                |
++------------+------------------+------+-----+---------------------+----------------+
+3 rows in set (0.011 sec)
 
 MariaDB [janus]> desc permission;
 +--------------+------------------+------+-----+---------+----------------+
@@ -72,7 +72,7 @@ MariaDB [janus]> desc permission;
 | level        | int(2) unsigned  | NO   |     | NULL    |                |
 | departmentId | int(10) unsigned | YES  | MUL | NULL    |                |
 +--------------+------------------+------+-----+---------+----------------+
-4 rows in set (0.004 sec)
+4 rows in set (0.003 sec)
 
 MariaDB [janus]> desc place;
 +----------+------------------+------+-----+---------+----------------+
@@ -83,7 +83,7 @@ MariaDB [janus]> desc place;
 | location | point            | NO   |     | NULL    |                |
 | beaconId | int(10) unsigned | YES  | MUL | NULL    |                |
 +----------+------------------+------+-----+---------+----------------+
-4 rows in set (0.011 sec)
+4 rows in set (0.016 sec)
 
 MariaDB [janus]> desc user;
 +---------------+------------------+------+-----+---------------------+----------------+
@@ -97,9 +97,8 @@ MariaDB [janus]> desc user;
 | password      | varchar(30)      | NO   |     | NULL                |                |
 | createTime    | datetime         | NO   |     | current_timestamp() |                |
 | lastLoginTime | datetime         | NO   |     | current_timestamp() |                |
-| entranceId    | int(10) unsigned | YES  | MUL | NULL                |                |
 +---------------+------------------+------+-----+---------------------+----------------+
-9 rows in set (0.014 sec)
+8 rows in set (0.014 sec)
 
 MariaDB [janus]> desc user_place_place;
 +---------+------------------+------+-----+---------+-------+
@@ -130,7 +129,7 @@ MariaDB [janus]> desc user_place_place;
 
 - [x] Write an entity relationship diagram for the database
 - [x] Connection between the API server and the database
-- [ ] Open some simple Restful API endpoints
+- [x] Open some simple Restful API endpoints
 - [ ] Create a simple mobile app that can send a message to the API server
 - [ ] Detect all the three beacons using the mobile app and send a message to the API server
 - [ ] Implement set a location for the entry point of a place
