@@ -4,6 +4,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
   ManyToOne,
   ManyToMany,
   JoinTable,
@@ -19,8 +20,10 @@ export class User {
   })
   id: number;
 
-  @ManyToOne((type) => Entrance, (entrance) => entrance.user)
-  entrance: Entrance;
+  @OneToMany((type) => Entrance, (entrance) => entrance.user, {
+    onDelete: 'SET NULL',
+  })
+  entrance: Entrance[];
 
   @ManyToOne((type) => Department, (department) => department.user)
   department: Department;

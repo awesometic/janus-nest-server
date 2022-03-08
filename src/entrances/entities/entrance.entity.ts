@@ -1,5 +1,5 @@
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Entrance {
@@ -9,8 +9,8 @@ export class Entrance {
   })
   id: number;
 
-  @OneToMany((type) => User, (user) => user.entrance, { onDelete: 'SET NULL' })
-  user: User[];
+  @ManyToOne((type) => User, (user) => user.entrance)
+  user: User;
 
   @Column({
     type: 'datetime',
