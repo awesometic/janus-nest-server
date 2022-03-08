@@ -1,34 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Inject, LoggerService } from '@nestjs/common';
 import { EntrancesService } from './entrances.service';
 import { CreateEntranceDto } from './dto/create-entrance.dto';
-import { UpdateEntranceDto } from './dto/update-entrance.dto';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { RemoveEntranceDto } from './dto/remove-entrance.dto';
 
 @Controller('entrances')
 export class EntrancesController {
-  constructor(private readonly entrancesService: EntrancesService) {}
+  constructor(
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
+    private readonly entrancesService: EntrancesService,
+  ) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createEntranceDto: CreateEntranceDto) {
+    this.logger.debug(`Creating entrance ${JSON.stringify(createEntranceDto)}`);
+
     return this.entrancesService.create(createEntranceDto);
   }
 
-  @Get()
-  findAll() {
-    return this.entrancesService.findAll();
-  }
+  @Post('/remove')
+  remove(@Body() removeEntranceDto: RemoveEntranceDto) {
+    this.logger.debug(`Removing entrance ${JSON.stringify(removeEntranceDto)}`);
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.entrancesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEntranceDto: UpdateEntranceDto) {
-    return this.entrancesService.update(+id, updateEntranceDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.entrancesService.remove(+id);
+    return this.entrancesService.remove(removeEntranceDto);
   }
 }

@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
+import { Repository } from 'typeorm';
 import { CreateEntranceDto } from './dto/create-entrance.dto';
-import { UpdateEntranceDto } from './dto/update-entrance.dto';
+import { RemoveEntranceDto } from './dto/remove-entrance.dto';
+import { Entrance } from './entities/entrance.entity';
 
 @Injectable()
 export class EntrancesService {
-  create(createEntranceDto: CreateEntranceDto) {
-    return 'This action adds a new entrance';
+  constructor(
+    @InjectRepository(Entrance)
+    private readonly entranceRepository: Repository<Entrance>,
+    @Inject(UsersService)
+    private readonly usersService: UsersService,
+  ) {}
+
+  async create(createEntranceDto: CreateEntranceDto) {
+    const entrance = new Entrance();
+
+    entrance.user = await this.getUser(createEntranceDto.userId);
+    entrance.accessTime = createEntranceDto.accessTime;
+
+    return await this.entranceRepository.save(entrance);
   }
 
-  findAll() {
-    return `This action returns all entrances`;
+  async remove(removeEntranceDto: RemoveEntranceDto) {
+    return await this.findEntrance(
+      removeEntranceDto.userId,
+      removeEntranceDto.accessTime,
+    );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} entrance`;
+  async findEntrance(userId: number, accessTime: Date): Promise<Entrance> {
+    return await this.entranceRepository.findOne({
+      where: { user: { id: userId }, accessTime },
+    });
   }
 
-  update(id: number, updateEntranceDto: UpdateEntranceDto) {
-    return `This action updates a #${id} entrance`;
+  async findEntrancesByUserId(id: number): Promise<Entrance[]> {
+    return this.entranceRepository.find({
+      where: { user: { id } },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} entrance`;
+  async findAllEntrances(): Promise<Entrance[]> {
+    return await this.entranceRepository.find();
+  }
+
+  async getUser(id: number): Promise<User> {
+    return await this.usersService.findUserById(id);
   }
 }
