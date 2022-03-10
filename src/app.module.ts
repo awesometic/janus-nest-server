@@ -15,6 +15,9 @@ import {
 } from 'nest-winston';
 import * as winston from 'winston';
 import { ExceptionModule } from './exception/exception.module';
+import { HealthCheckController } from './health-check/health-check.controller';
+import { TerminusModule } from '@nestjs/terminus';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -36,13 +39,15 @@ import { ExceptionModule } from './exception/exception.module';
         }),
       ],
     }),
+    TerminusModule,
+    HttpModule,
     ExceptionModule,
     UsersModule,
     PlacesModule,
     BeaconsModule,
     EntrancesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthCheckController],
   providers: [AppService],
 })
 export class AppModule {
