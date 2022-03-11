@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { Transform } from 'class-transformer';
 import { IsString, MaxLength } from 'class-validator';
 
@@ -7,3 +8,5 @@ export class CreateDepartmentDto {
   @MaxLength(20)
   readonly name: string;
 }
+
+export class RemoveDepartmentDto extends PartialType(CreateDepartmentDto) {}

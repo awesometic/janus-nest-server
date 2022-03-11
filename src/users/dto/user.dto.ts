@@ -1,3 +1,4 @@
+import { PartialType, PickType } from '@nestjs/mapped-types';
 import { Transform } from 'class-transformer';
 import {
   IsEmail,
@@ -36,3 +37,9 @@ export class CreateUserDto {
   @IsOptional()
   readonly department: Department;
 }
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
+
+export class RemoveUserDto extends PartialType(
+  PickType(CreateUserDto, ['email', 'password']),
+) {}

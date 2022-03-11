@@ -1,16 +1,15 @@
 import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CreatePermissionDto } from './dto/create-permission.dto';
-import { RemovePermissionDto } from './dto/remove-permission.dto';
-import { UpdatePermissionDto } from './dto/update-permission.dto';
-import { PermissionsService } from './permissions.service';
+import { CreatePermissionCommand, UpdatePermissionCommand, RemovePermissionCommand } from './command/permission.command';
+import { CreatePermissionDto, UpdatePermissionDto, RemovePermissionDto } from './dto/permission.dto';
 
 @Controller('permissions')
 export class PermissionsController {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
-    private readonly permissionsService: PermissionsService,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Post('/create')
@@ -19,7 +18,14 @@ export class PermissionsController {
       `Creating permission ${JSON.stringify(createPermissionDto)}`,
     );
 
-    return this.permissionsService.createPermission(createPermissionDto);
+    const { name, level, departmentId } = createPermissionDto;
+    const command = new CreatePermissionCommand(
+      name,
+      level,
+      departmentId,
+    );
+
+    return this.commandBus.execute(command);
   }
 
   @Post('/update')
@@ -28,7 +34,14 @@ export class PermissionsController {
       `Updating permission ${JSON.stringify(updatePermissionDto)}`,
     );
 
-    return this.permissionsService.updatePermission(updatePermissionDto);
+    const { name, level, departmentId } = updatePermissionDto;
+    const command = new UpdatePermissionCommand(
+      name,
+      level,
+      departmentId,
+    );
+
+    return this.commandBus.execute(command);
   }
 
   @Post('/remove')
@@ -37,6 +50,12 @@ export class PermissionsController {
       `Removing permission ${JSON.stringify(removePermissionDto)}`,
     );
 
-    return this.permissionsService.removePermission(removePermissionDto);
+    const { name, departmentId } = removePermissionDto;
+    const command = new RemovePermissionCommand(
+      name,
+      departmentId,
+    );
+
+    return this.commandBus.execute(command);
   }
 }

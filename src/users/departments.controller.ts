@@ -1,15 +1,15 @@
 import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CreateDepartmentDto } from './dto/create-department.dto';
-import { RemoveDepartmentDto } from './dto/remove-department.dto';
-import { DepartmentsService } from './departments.service';
+import { CreateDepartmentCommand, RemoveDepartmentCommand } from './command/department.command';
+import { CreateDepartmentDto, RemoveDepartmentDto } from './dto/department.dto';
 
 @Controller('departments')
 export class DepartmentsController {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
-    private readonly departmentsService: DepartmentsService,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Post('/create')
@@ -18,7 +18,12 @@ export class DepartmentsController {
       `Creating department ${JSON.stringify(createDepartmentDto)}`,
     );
 
-    return this.departmentsService.createDepartment(createDepartmentDto);
+    const { name } = createDepartmentDto;
+    const command = new CreateDepartmentCommand(
+      name,
+    );
+
+    return this.commandBus.execute(command);
   }
 
   @Post('/remove')
@@ -27,6 +32,10 @@ export class DepartmentsController {
       `Removing department ${JSON.stringify(removeDepartmentDto)}`,
     );
 
-    return this.departmentsService.removeDepartment(removeDepartmentDto);
+    const { name } = removeDepartmentDto;
+    const command = new RemoveDepartmentCommand( name,
+    );
+
+    return this.commandBus.execute(command);
   }
 }

@@ -1,18 +1,27 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Permission } from './entities/permission.entity';
 import { Department } from './entities/department.entity';
 import { PermissionsController } from './permissions.controller';
-import { PermissionsService } from './permissions.service';
 import { DepartmentsController } from './departments.controller';
-import { DepartmentsService } from './departments.service';
+import { CqrsModule } from '@nestjs/cqrs';
+import { CreateUserHandler, UpdateUserHandler } from './command/user.command.handler';
+import { RemoveUserCommand } from './command/user.command';
+import { CreatePermissionHandler, RemovePermissionHandler, UpdatePermissionHandler } from './command/permission.command.handler';
+import { CreateDepartmentHandler, RemoveDepartmentHandler } from './command/department.command.handler';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Permission, Department])],
+  imports: [
+    TypeOrmModule.forFeature([User, Permission, Department]),
+    CqrsModule,
+  ],
   controllers: [UsersController, PermissionsController, DepartmentsController],
-  providers: [UsersService, PermissionsService, DepartmentsService],
+  providers: [
+    CreateUserHandler, UpdateUserHandler, RemoveUserCommand,
+    CreatePermissionHandler, UpdatePermissionHandler, RemovePermissionHandler,
+    CreateDepartmentHandler, RemoveDepartmentHandler,
+  ],
 })
 export class UsersModule {}
