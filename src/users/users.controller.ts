@@ -1,7 +1,11 @@
 import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CreateUserCommand, UpdateUserCommand, RemoveUserCommand } from './command/user.command';
+import {
+  CreateUserCommand,
+  UpdateUserCommand,
+  RemoveUserCommand,
+} from './command/user.command';
 import { CreateUserDto, UpdateUserDto, RemoveUserDto } from './dto/user.dto';
 
 @Controller('users')
@@ -22,7 +26,7 @@ export class UsersController {
       name,
       password,
       permission,
-      department
+      department,
     );
 
     return this.commandBus.execute(command);
@@ -38,7 +42,7 @@ export class UsersController {
       name,
       password,
       permission,
-      department
+      department,
     );
 
     return this.commandBus.execute(command);
@@ -49,10 +53,7 @@ export class UsersController {
     this.logger.debug(`Removing user ${JSON.stringify(removeUserDto)}`);
 
     const { email, password } = removeUserDto;
-    const command = new RemoveUserCommand(
-      email,
-      password
-    );
+    const command = new RemoveUserCommand(email, password);
 
     return this.commandBus.execute(command);
   }

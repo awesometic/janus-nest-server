@@ -1,7 +1,10 @@
 import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CreateDepartmentCommand, RemoveDepartmentCommand } from './command/department.command';
+import {
+  CreateDepartmentCommand,
+  RemoveDepartmentCommand,
+} from './command/department.command';
 import { CreateDepartmentDto, RemoveDepartmentDto } from './dto/department.dto';
 
 @Controller('departments')
@@ -19,9 +22,7 @@ export class DepartmentsController {
     );
 
     const { name } = createDepartmentDto;
-    const command = new CreateDepartmentCommand(
-      name,
-    );
+    const command = new CreateDepartmentCommand(name);
 
     return this.commandBus.execute(command);
   }
@@ -33,8 +34,7 @@ export class DepartmentsController {
     );
 
     const { name } = removeDepartmentDto;
-    const command = new RemoveDepartmentCommand( name,
-    );
+    const command = new RemoveDepartmentCommand(name);
 
     return this.commandBus.execute(command);
   }

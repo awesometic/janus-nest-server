@@ -1,7 +1,15 @@
 import { Controller, Post, Body, Inject, LoggerService } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { CreatePlaceDto, UpdatePlaceDto, RemovePlaceDto } from './dto/place.dto';
-import { CreatePlaceCommand, RemovePlaceCommand, UpdatePlaceCommand } from './command/place.command';
+import {
+  CreatePlaceDto,
+  UpdatePlaceDto,
+  RemovePlaceDto,
+} from './dto/place.dto';
+import {
+  CreatePlaceCommand,
+  RemovePlaceCommand,
+  UpdatePlaceCommand,
+} from './command/place.command';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Controller('places')
@@ -17,11 +25,7 @@ export class PlacesController {
     this.logger.debug(`Creating place ${JSON.stringify(createPlaceDto)}`);
 
     const { name, longitude, latitude } = createPlaceDto;
-    const command = new CreatePlaceCommand(
-      name,
-      longitude,
-      latitude,
-    );
+    const command = new CreatePlaceCommand(name, longitude, latitude);
 
     return this.commandBus.execute(command);
   }
@@ -31,11 +35,7 @@ export class PlacesController {
     this.logger.debug(`Updating place ${JSON.stringify(updatePlaceDto)}`);
 
     const { name, longitude, latitude } = updatePlaceDto;
-    const command = new UpdatePlaceCommand(
-      name,
-      longitude,
-      latitude,
-    );
+    const command = new UpdatePlaceCommand(name, longitude, latitude);
 
     this.commandBus.execute(command);
 
@@ -47,9 +47,7 @@ export class PlacesController {
     this.logger.debug(`Removing place ${JSON.stringify(removePlaceDto)}`);
 
     const { name } = removePlaceDto;
-    const command = new RemovePlaceCommand(
-      name,
-    );
+    const command = new RemovePlaceCommand(name);
 
     this.commandBus.execute(command);
 

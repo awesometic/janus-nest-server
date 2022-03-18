@@ -22,8 +22,8 @@ export class CreatePlaceDto {
   readonly latitude: number;
 }
 
-export class UpdatePlaceDto extends PartialType(CreatePlaceDto) { }
+export class UpdatePlaceDto extends PartialType(CreatePlaceDto) {}
 
 export class RemovePlaceDto extends PartialType(
   PickType(CreatePlaceDto, ['name']),
-) { }
+) {}

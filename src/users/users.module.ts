@@ -7,9 +7,20 @@ import { Department } from './entities/department.entity';
 import { PermissionsController } from './permissions.controller';
 import { DepartmentsController } from './departments.controller';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreateUserHandler, RemoveUserHandler, UpdateUserHandler } from './command/user.command.handler';
-import { CreatePermissionHandler, RemovePermissionHandler, UpdatePermissionHandler } from './command/permission.command.handler';
-import { CreateDepartmentHandler, RemoveDepartmentHandler } from './command/department.command.handler';
+import {
+  CreateUserHandler,
+  RemoveUserHandler,
+  UpdateUserHandler,
+} from './command/user.command.handler';
+import {
+  CreatePermissionHandler,
+  RemovePermissionHandler,
+  UpdatePermissionHandler,
+} from './command/permission.command.handler';
+import {
+  CreateDepartmentHandler,
+  RemoveDepartmentHandler,
+} from './command/department.command.handler';
 import { UserRepositoryWrapper } from './repository/user.repository';
 import { PermissionRepositoryWrapper } from './repository/permission.repository';
 import { DepartmentRepositoryWrapper } from './repository/department.repository';
@@ -21,10 +32,17 @@ import { DepartmentRepositoryWrapper } from './repository/department.repository'
   ],
   controllers: [UsersController, PermissionsController, DepartmentsController],
   providers: [
-    UserRepositoryWrapper, PermissionRepositoryWrapper, DepartmentRepositoryWrapper,
-    CreateUserHandler, UpdateUserHandler, RemoveUserHandler,
-    CreatePermissionHandler, UpdatePermissionHandler, RemovePermissionHandler,
-    CreateDepartmentHandler, RemoveDepartmentHandler,
+    UserRepositoryWrapper,
+    PermissionRepositoryWrapper,
+    DepartmentRepositoryWrapper,
+    CreateUserHandler,
+    UpdateUserHandler,
+    RemoveUserHandler,
+    CreatePermissionHandler,
+    UpdatePermissionHandler,
+    RemovePermissionHandler,
+    CreateDepartmentHandler,
+    RemoveDepartmentHandler,
   ],
 })
 export class UsersModule {}

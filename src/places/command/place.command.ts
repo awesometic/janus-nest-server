@@ -1,11 +1,11 @@
-import { ICommand } from "@nestjs/cqrs";
+import { ICommand } from '@nestjs/cqrs';
 
 export class CreatePlaceCommand implements ICommand {
   constructor(
     public readonly name: string,
     public readonly longitude: number,
     public readonly latitude: number,
-  ) { }
+  ) {}
 }
 
 export class UpdatePlaceCommand implements ICommand {
@@ -13,11 +13,9 @@ export class UpdatePlaceCommand implements ICommand {
     public readonly name: string,
     public readonly longitude: number,
     public readonly latitude: number,
-  ) { }
+  ) {}
 }
 
 export class RemovePlaceCommand implements ICommand {
-  constructor(
-    public readonly name: string,
-  ) { }
+  constructor(public readonly name: string) {}
 }

@@ -1,25 +1,24 @@
-import { Injectable, UnprocessableEntityException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Department } from "../entities/department.entity";
-import { Permission } from "../entities/permission.entity";
-import { User } from "../entities/user.entity";
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Department } from '../entities/department.entity';
+import { Permission } from '../entities/permission.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UserRepositoryWrapper {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   public async createUser(
     email: string,
     name: string,
-    password:string,
+    password: string,
     permission: Permission,
-    department: Department
-    ): Promise<User> {
-
+    department: Department,
+  ): Promise<User> {
     const user = new User();
 
     user.email = email;
@@ -40,10 +39,10 @@ export class UserRepositoryWrapper {
   public async updateUser(
     email: string,
     name: string,
-    password:string,
+    password: string,
     permission: Permission,
-    department: Department
-    ): Promise<User> {
+    department: Department,
+  ): Promise<User> {
     const user = await this.findOneByEmail(email);
 
     user.email = email;
@@ -55,10 +54,7 @@ export class UserRepositoryWrapper {
     return await this.userRepository.save(user);
   }
 
-  public async removeUser(
-    email: string,
-    password: string
-  ): Promise<User> {
+  public async removeUser(email: string, password: string): Promise<User> {
     const user = await this.findOneByEmail(email);
 
     if (user.password == password) {

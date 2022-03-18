@@ -1,8 +1,16 @@
 import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { CreatePermissionCommand, UpdatePermissionCommand, RemovePermissionCommand } from './command/permission.command';
-import { CreatePermissionDto, UpdatePermissionDto, RemovePermissionDto } from './dto/permission.dto';
+import {
+  CreatePermissionCommand,
+  UpdatePermissionCommand,
+  RemovePermissionCommand,
+} from './command/permission.command';
+import {
+  CreatePermissionDto,
+  UpdatePermissionDto,
+  RemovePermissionDto,
+} from './dto/permission.dto';
 
 @Controller('permissions')
 export class PermissionsController {
@@ -19,11 +27,7 @@ export class PermissionsController {
     );
 
     const { name, level, departmentId } = createPermissionDto;
-    const command = new CreatePermissionCommand(
-      name,
-      level,
-      departmentId,
-    );
+    const command = new CreatePermissionCommand(name, level, departmentId);
 
     return this.commandBus.execute(command);
   }
@@ -35,11 +39,7 @@ export class PermissionsController {
     );
 
     const { name, level, departmentId } = updatePermissionDto;
-    const command = new UpdatePermissionCommand(
-      name,
-      level,
-      departmentId,
-    );
+    const command = new UpdatePermissionCommand(name, level, departmentId);
 
     return this.commandBus.execute(command);
   }
@@ -51,10 +51,7 @@ export class PermissionsController {
     );
 
     const { name, departmentId } = removePermissionDto;
-    const command = new RemovePermissionCommand(
-      name,
-      departmentId,
-    );
+    const command = new RemovePermissionCommand(name, departmentId);
 
     return this.commandBus.execute(command);
   }

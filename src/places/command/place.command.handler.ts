@@ -1,7 +1,11 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { PlaceRepositoryWrapper } from "../repository/place.repository";
-import { CreatePlaceCommand, RemovePlaceCommand, UpdatePlaceCommand } from "./place.command";
+import { Inject, Injectable } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { PlaceRepositoryWrapper } from '../repository/place.repository';
+import {
+  CreatePlaceCommand,
+  RemovePlaceCommand,
+  UpdatePlaceCommand,
+} from './place.command';
 
 @Injectable()
 @CommandHandler(CreatePlaceCommand)
@@ -14,11 +18,7 @@ export class CreatePlaceHandler implements ICommandHandler<CreatePlaceCommand> {
   async execute(command: CreatePlaceCommand): Promise<any> {
     const { name, longitude, latitude } = command;
 
-    return await this.placeRepository.createPlace(
-      name,
-      longitude,
-      latitude,
-    );
+    return await this.placeRepository.createPlace(name, longitude, latitude);
   }
 }
 
@@ -33,11 +33,7 @@ export class UpdatePlaceHandler implements ICommandHandler<UpdatePlaceCommand> {
   async execute(command: UpdatePlaceCommand): Promise<any> {
     const { name, longitude, latitude } = command;
 
-    return await this.placeRepository.updatePlace(
-      name,
-      longitude,
-      latitude,
-    );
+    return await this.placeRepository.updatePlace(name, longitude, latitude);
   }
 }
 
@@ -52,8 +48,6 @@ export class RemovePlaceHandler implements ICommandHandler<RemovePlaceCommand> {
   async execute(command: RemovePlaceCommand): Promise<any> {
     const { name } = command;
 
-    return await this.placeRepository.removePlace(
-      name,
-    );
+    return await this.placeRepository.removePlace(name);
   }
 }

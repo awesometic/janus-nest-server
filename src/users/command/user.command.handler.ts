@@ -1,7 +1,11 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { CreateUserCommand, RemoveUserCommand, UpdateUserCommand } from "./user.command";
-import { UserRepositoryWrapper } from "../repository/user.repository";
+import { Inject, Injectable } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import {
+  CreateUserCommand,
+  RemoveUserCommand,
+  UpdateUserCommand,
+} from './user.command';
+import { UserRepositoryWrapper } from '../repository/user.repository';
 
 @Injectable()
 @CommandHandler(CreateUserCommand)
@@ -12,15 +16,15 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   ) {}
 
   async execute(command: CreateUserCommand): Promise<any> {
-      const { email, name, password, permission, department } = command;
+    const { email, name, password, permission, department } = command;
 
-      return await this.userRepository.createUser(
-        email,
-        name,
-        password,
-        permission,
-        department
-      );
+    return await this.userRepository.createUser(
+      email,
+      name,
+      password,
+      permission,
+      department,
+    );
   }
 }
 
@@ -33,15 +37,15 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
   ) {}
 
   async execute(command: UpdateUserCommand): Promise<any> {
-      const { email, name, password, permission, department } = command;
+    const { email, name, password, permission, department } = command;
 
-      return await this.userRepository.updateUser(
-        email,
-        name,
-        password,
-        permission,
-        department
-      );
+    return await this.userRepository.updateUser(
+      email,
+      name,
+      password,
+      permission,
+      department,
+    );
   }
 }
 
@@ -54,11 +58,8 @@ export class RemoveUserHandler implements ICommandHandler<RemoveUserCommand> {
   ) {}
 
   async execute(command: RemoveUserCommand): Promise<any> {
-      const { email, password } = command;
+    const { email, password } = command;
 
-      return await this.userRepository.removeUser(
-        email,
-        password,
-      );
+    return await this.userRepository.removeUser(email, password);
   }
 }
