@@ -1,3 +1,4 @@
+import { PartialType, PickType } from '@nestjs/mapped-types';
 import { Transform } from 'class-transformer';
 import {
   IsNumberString,
@@ -20,3 +21,9 @@ export class CreatePlaceDto {
   @IsOptional()
   readonly latitude: number;
 }
+
+export class UpdatePlaceDto extends PartialType(CreatePlaceDto) { }
+
+export class RemovePlaceDto extends PartialType(
+  PickType(CreatePlaceDto, ['name']),
+) { }
