@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { IsDate, IsInt } from 'class-validator';
 
 export class CreateEntranceDto {
@@ -7,3 +8,5 @@ export class CreateEntranceDto {
   @IsDate()
   readonly accessTime: Date;
 }
+
+export class RemoveEntranceDto extends PartialType(CreateEntranceDto) {}
