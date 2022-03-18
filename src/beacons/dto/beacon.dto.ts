@@ -1,3 +1,4 @@
+import { PartialType, PickType } from '@nestjs/mapped-types';
 import { Transform } from 'class-transformer';
 import { IsInt, IsOptional, IsString, MaxLength } from 'class-validator';
 
@@ -30,3 +31,9 @@ export class CreateBeaconDto {
   @IsOptional()
   readonly placeId: number;
 }
+
+export class UpdateBeaconDto extends PartialType(CreateBeaconDto) {}
+
+export class RemoveBeaconDto extends PartialType(
+  PickType(CreateBeaconDto, ['macAddress']),
+) {}
