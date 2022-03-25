@@ -56,6 +56,14 @@ export class BeaconRepositoryWrapper {
     return await this.beaconRepository.findOne({ macAddress: macAddress });
   }
 
+  public async findAllByPlaceId(placeId: number): Promise<Beacon[] | null> {
+    return await this.beaconRepository
+      .createQueryBuilder('beacon')
+      .leftJoinAndSelect('beacon.place', 'place')
+      .where('place.id = :placeId', { placeId: placeId })
+      .getMany();
+  }
+
   public async findAll(): Promise<Beacon[] | null> {
     return await this.beaconRepository.find();
   }
