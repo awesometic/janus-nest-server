@@ -49,6 +49,10 @@ export class PlaceRepositoryWrapper {
     return await this.placeRepository.remove(place);
   }
 
+  async findOneById(id: number): Promise<Place | null> {
+    return await this.placeRepository.findOne({ id: id });
+  }
+
   async findOneByName(name: string): Promise<Place | null> {
     return await this.placeRepository.findOne({ name: name });
   }
