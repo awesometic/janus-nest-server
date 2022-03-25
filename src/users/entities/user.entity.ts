@@ -36,18 +36,18 @@ export class User {
   place: Place[];
 
   @Column({
-    length: 30,
+    length: 64,
     unique: true,
   })
   email: string;
 
   @Column({
-    length: 30,
+    length: 32,
   })
   name: string;
 
   @Column({
-    length: 30,
+    length: 32,
   })
   password: string;
 
