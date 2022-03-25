@@ -1,5 +1,13 @@
-import { Controller, Post, Body, LoggerService, Inject } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import {
+  Controller,
+  Post,
+  Body,
+  LoggerService,
+  Inject,
+  Get,
+  Request,
+} from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import {
   CreateBeaconCommand,
@@ -11,6 +19,11 @@ import {
   UpdateBeaconDto,
   RemoveBeaconDto,
 } from './dto/beacon.dto';
+import {
+  GetAllBeaconInfoQuery,
+  GetBeaconInfoQuery,
+  GetBeaconInfoQueryResult,
+} from './query/get-beacon-info.query';
 
 @Controller('beacons')
 export class BeaconsController {
@@ -18,6 +31,7 @@ export class BeaconsController {
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Post('/create')
@@ -60,5 +74,23 @@ export class BeaconsController {
     const command = new RemoveBeaconCommand(macAddress);
 
     return this.commandBus.execute(command);
+  }
+
+  @Get()
+  getBeaconInfo(@Request() req): Promise<GetBeaconInfoQueryResult> {
+    const { macAddress } = req.query;
+
+    const query = new GetBeaconInfoQuery(macAddress);
+
+    return this.queryBus.execute(query);
+  }
+
+  @Get()
+  getAllBeaconInfoByPlaceId(@Request() req): Promise<GetBeaconInfoQueryResult> {
+    const { placeId } = req.query;
+
+    const query = new GetAllBeaconInfoQuery(placeId);
+
+    return this.queryBus.execute(query);
   }
 }

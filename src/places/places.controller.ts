@@ -1,5 +1,13 @@
-import { Controller, Post, Body, Inject, LoggerService } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import {
+  Controller,
+  Post,
+  Body,
+  Inject,
+  LoggerService,
+  Get,
+  Request,
+} from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   CreatePlaceDto,
   UpdatePlaceDto,
@@ -11,6 +19,10 @@ import {
   UpdatePlaceCommand,
 } from './command/place.command';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import {
+  GetPlaceInfoQuery,
+  GetPlaceInfoQueryResult,
+} from './query/get-place-info.query';
 
 @Controller('places')
 export class PlacesController {
@@ -18,6 +30,7 @@ export class PlacesController {
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Post('/create')
@@ -52,5 +65,14 @@ export class PlacesController {
     this.commandBus.execute(command);
 
     return this.commandBus.execute(command);
+  }
+
+  @Get()
+  getPlaceInfo(@Request() req): Promise<GetPlaceInfoQueryResult> {
+    const { name } = req.query;
+
+    const query = new GetPlaceInfoQuery(name);
+
+    return this.queryBus.execute(query);
   }
 }

@@ -1,5 +1,13 @@
-import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  LoggerService,
+  Post,
+  Request,
+} from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import {
   CreatePermissionCommand,
@@ -11,6 +19,10 @@ import {
   UpdatePermissionDto,
   RemovePermissionDto,
 } from './dto/permission.dto';
+import {
+  GetPermissionInfoQuery,
+  GetPermissionInfoQueryResult,
+} from './query/get-permission-info.query';
 
 @Controller('permissions')
 export class PermissionsController {
@@ -18,6 +30,7 @@ export class PermissionsController {
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Post('/create')
@@ -54,5 +67,14 @@ export class PermissionsController {
     const command = new RemovePermissionCommand(name, departmentId);
 
     return this.commandBus.execute(command);
+  }
+
+  @Get()
+  getPermissionsInfo(@Request() req): Promise<GetPermissionInfoQueryResult> {
+    const { name, departmentId } = req.permission;
+
+    const query = new GetPermissionInfoQuery(name, departmentId);
+
+    return this.queryBus.execute(query);
   }
 }

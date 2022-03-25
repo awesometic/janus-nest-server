@@ -1,5 +1,14 @@
-import { Body, Controller, Inject, LoggerService, Post } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Inject,
+  LoggerService,
+  Post,
+  Request,
+} from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import {
   CreateUserCommand,
@@ -7,6 +16,11 @@ import {
   RemoveUserCommand,
 } from './command/user.command';
 import { CreateUserDto, UpdateUserDto, RemoveUserDto } from './dto/user.dto';
+import {
+  GetUserInfoByEmailQuery,
+  GetUserInfoByIdQuery,
+  GetUserInfoQueryResult,
+} from './query/get-user-info.query';
 
 @Controller('users')
 export class UsersController {
@@ -14,6 +28,7 @@ export class UsersController {
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
     private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Post('/create')
@@ -56,5 +71,24 @@ export class UsersController {
     const command = new RemoveUserCommand(email, password);
 
     return this.commandBus.execute(command);
+  }
+
+  @Get()
+  getUserInfo(@Request() req): Promise<GetUserInfoQueryResult> {
+    const email = req.uesr.email || null;
+    const id = req.user.id || null;
+
+    if (!(email || id)) {
+      throw new BadRequestException('Email or id is required');
+    }
+
+    let query: GetUserInfoByEmailQuery | GetUserInfoByIdQuery;
+    if (email) {
+      query = new GetUserInfoByEmailQuery(email);
+    } else {
+      query = new GetUserInfoByIdQuery(id);
+    }
+
+    return this.queryBus.execute(query);
   }
 }
