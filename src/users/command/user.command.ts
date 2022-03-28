@@ -7,8 +7,8 @@ export class CreateUserCommand implements ICommand {
     public readonly email: string,
     public readonly name: string,
     public readonly password: string,
-    public readonly permission: Permission,
-    public readonly department: Department,
+    public readonly permission?: Permission,
+    public readonly department?: Department,
   ) {}
 }
 
@@ -17,8 +17,8 @@ export class UpdateUserCommand implements ICommand {
     public readonly email: string,
     public readonly name: string,
     public readonly password: string,
-    public readonly permission: Permission,
-    public readonly department: Department,
+    public readonly permission?: Permission,
+    public readonly department?: Department,
   ) {}
 }
 
