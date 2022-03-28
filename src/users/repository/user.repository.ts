@@ -27,12 +27,6 @@ export class UserRepositoryWrapper {
     user.permission = permission;
     user.department = department;
 
-    // Check if the user already exists
-    const existingUser = await this.userRepository.findOne(user.email);
-    if (existingUser) {
-      throw new UnprocessableEntityException('Email already exists');
-    }
-
     return await this.userRepository.save(user);
   }
 
@@ -62,6 +56,10 @@ export class UserRepositoryWrapper {
     } else {
       throw new UnprocessableEntityException('Password is incorrect');
     }
+  }
+
+  public async checkUserExists(email: string): Promise<boolean> {
+    return (await this.findOneByEmail(email)) !== null;
   }
 
   public async findOneByEmail(email: string): Promise<User | null> {

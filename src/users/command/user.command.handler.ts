@@ -1,4 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   CreateUserCommand,
@@ -17,6 +21,10 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
   async execute(command: CreateUserCommand): Promise<any> {
     const { email, name, password, permission, department } = command;
+
+    if (!(await this.userRepository.checkUserExists(email))) {
+      throw new UnprocessableEntityException('Email already exists');
+    }
 
     return await this.userRepository.createUser(
       email,
