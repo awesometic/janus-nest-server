@@ -5,8 +5,8 @@ import {
   IsInt,
   IsOptional,
   IsString,
+  Length,
   Matches,
-  MaxLength,
   MinLength,
 } from 'class-validator';
 import { Department } from '../entities/department.entity';
@@ -16,17 +16,18 @@ export class CreateUserDto {
   @Transform(({ value }) => value.trim())
   @IsString()
   @IsEmail()
-  @MaxLength(30)
+  @Length(2, 64)
   readonly email: string;
 
   @Transform(({ value }) => value.trim())
   @IsString()
   @MinLength(2)
-  @MaxLength(30)
+  @Length(2, 32)
   readonly name: string;
 
   @IsString()
   @Matches(/^[a-zA-A0-9\d!@#$%^&*()]{8,30}$/)
+  @Length(2, 32)
   readonly password: string;
 
   @IsInt()
