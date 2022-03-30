@@ -62,4 +62,15 @@ export class User {
     default: () => 'CURRENT_TIMESTAMP',
   })
   lastLoginTime: Date;
+
+  /*
+   * Status 0 - Active
+   * Status 1 - Inactive
+   * Status 2 - Blocked
+  */
+  @Column({
+    type: 'tinyint',
+    default: 1,
+  })
+  status: number;
 }
