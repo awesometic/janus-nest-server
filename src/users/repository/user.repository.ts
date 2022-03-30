@@ -18,6 +18,7 @@ export class UserRepositoryWrapper {
     password: string,
     permission: Permission,
     department: Department,
+    verifyToken: string,
   ): Promise<User> {
     const user = new User();
 
@@ -26,6 +27,7 @@ export class UserRepositoryWrapper {
     user.password = password;
     user.permission = permission;
     user.department = department;
+    user.verifyToken = verifyToken;
 
     return await this.userRepository.save(user);
   }
