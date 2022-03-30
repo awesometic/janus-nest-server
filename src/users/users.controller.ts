@@ -6,6 +6,7 @@ import {
   Inject,
   LoggerService,
   Post,
+  Query,
   Request,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -14,6 +15,7 @@ import {
   CreateUserCommand,
   UpdateUserCommand,
   RemoveUserCommand,
+  VerifyEmailCommand,
 } from './command/user.command';
 import { CreateUserDto, UpdateUserDto, RemoveUserDto } from './dto/user.dto';
 import {
@@ -69,6 +71,15 @@ export class UsersController {
 
     const { email, password } = removeUserDto;
     const command = new RemoveUserCommand(email, password);
+
+    return this.commandBus.execute(command);
+  }
+
+  @Get('/email-verification')
+  async verifyEmail(@Query('token') token: string) {
+    this.logger.debug(`Verifying token ${token}`);
+
+    const command = new VerifyEmailCommand(token);
 
     return this.commandBus.execute(command);
   }

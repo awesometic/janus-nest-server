@@ -64,8 +64,24 @@ export class UserRepositoryWrapper {
     return (await this.findOneByEmail(email)) !== null;
   }
 
-  public async checkUserVerified(email: string): Promise<boolean> {
-    return (await this.userRepository.findOne({ email })).status == 0;
+  public async checkUserVerified(verifyToken: string): Promise<boolean> {
+    // TODO: 0 means active/verified, but also means not blocked or at another condition
+    return (await this.userRepository.findOne({ verifyToken })).status == 0;
+  }
+
+  public async verifyUserEmail(verifyToken: string): Promise<User | null> {
+    const user = await this.findOneByToken(verifyToken);
+
+    if (user !== null) {
+      user.status = 0;
+      return await this.userRepository.save(user);
+    } else {
+      throw new UnprocessableEntityException('User not found');
+    }
+  }
+
+  public async findOneByToken(verifyToken: string): Promise<User | null> {
+    return await this.userRepository.findOne({ verifyToken });
   }
 
   public async findOneByEmail(email: string): Promise<User | null> {

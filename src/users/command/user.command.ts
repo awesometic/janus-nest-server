@@ -28,3 +28,7 @@ export class RemoveUserCommand implements ICommand {
     public readonly password: string,
   ) {}
 }
+
+export class VerifyEmailCommand implements ICommand {
+  constructor(public readonly verifyToken: string) {}
+}

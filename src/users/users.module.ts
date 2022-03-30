@@ -11,6 +11,7 @@ import {
   CreateUserHandler,
   RemoveUserHandler,
   UpdateUserHandler,
+  VerifyEmailHandler,
 } from './command/user.command.handler';
 import {
   CreatePermissionHandler,
@@ -24,6 +25,7 @@ import {
 import { UserRepositoryWrapper } from './repository/user.repository';
 import { PermissionRepositoryWrapper } from './repository/permission.repository';
 import { DepartmentRepositoryWrapper } from './repository/department.repository';
+import { EmailSenderService } from 'src/email/email-sender.service';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { DepartmentRepositoryWrapper } from './repository/department.repository'
     RemovePermissionHandler,
     CreateDepartmentHandler,
     RemoveDepartmentHandler,
+    VerifyEmailHandler,
+    EmailSenderService,
   ],
 })
 export class UsersModule {}
