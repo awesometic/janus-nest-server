@@ -63,6 +63,11 @@ export class User {
   })
   lastLoginTime: Date;
 
+  @Column({
+    length: 36,
+  })
+  verifyToken: string;
+
   /*
    * Status 0 - Active
    * Status 1 - Inactive
