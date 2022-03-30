@@ -17,6 +17,7 @@ import { ExceptionModule } from './exception/exception.module';
 import { HealthCheckController } from './health-check/health-check.controller';
 import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { HttpModule } from '@nestjs/axios';
     PlacesModule,
     BeaconsModule,
     EntrancesModule,
+    EmailModule,
   ],
   controllers: [AppController, HealthCheckController],
   providers: [AppService],
