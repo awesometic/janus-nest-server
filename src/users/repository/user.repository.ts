@@ -62,6 +62,10 @@ export class UserRepositoryWrapper {
     return (await this.findOneByEmail(email)) !== null;
   }
 
+  public async checkUserVerified(email: string): Promise<boolean> {
+    return (await this.userRepository.findOne({ email })).status == 0;
+  }
+
   public async findOneByEmail(email: string): Promise<User | null> {
     return await this.userRepository.findOne({ email });
   }
