@@ -29,7 +29,7 @@ MariaDB [janus]> show tables;
 | user             |
 | user_place_place |
 +------------------+
-7 rows in set (0.002 sec)
+7 rows in set (0.003 sec)
 
 MariaDB [janus]> desc beacon;
 +------------+------------------+------+-----+---------+----------------+
@@ -42,7 +42,7 @@ MariaDB [janus]> desc beacon;
 | minor      | varchar(4)       | NO   |     | NULL    |                |
 | threshold  | int(10) unsigned | NO   |     | NULL    |                |
 +------------+------------------+------+-----+---------+----------------+
-6 rows in set (0.003 sec)
+6 rows in set (0.009 sec)
 
 MariaDB [janus]> desc department;
 +-------+------------------+------+-----+---------+----------------+
@@ -51,7 +51,7 @@ MariaDB [janus]> desc department;
 | id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
 | name  | varchar(20)      | NO   | UNI | NULL    |                |
 +-------+------------------+------+-----+---------+----------------+
-2 rows in set (0.001 sec)
+2 rows in set (0.008 sec)
 
 MariaDB [janus]> desc entrance;
 +------------+------------------+------+-----+---------------------+----------------+
@@ -61,7 +61,7 @@ MariaDB [janus]> desc entrance;
 | accessTime | datetime         | NO   |     | current_timestamp() |                |
 | userId     | int(10) unsigned | YES  | MUL | NULL                |                |
 +------------+------------------+------+-----+---------------------+----------------+
-3 rows in set (0.011 sec)
+3 rows in set (0.012 sec)
 
 MariaDB [janus]> desc permission;
 +--------------+------------------+------+-----+---------+----------------+
@@ -72,7 +72,7 @@ MariaDB [janus]> desc permission;
 | level        | int(2) unsigned  | NO   |     | NULL    |                |
 | departmentId | int(10) unsigned | YES  | MUL | NULL    |                |
 +--------------+------------------+------+-----+---------+----------------+
-4 rows in set (0.003 sec)
+4 rows in set (0.004 sec)
 
 MariaDB [janus]> desc place;
 +----------+------------------+------+-----+---------+----------------+
@@ -83,22 +83,24 @@ MariaDB [janus]> desc place;
 | location | point            | NO   |     | NULL    |                |
 | beaconId | int(10) unsigned | YES  | MUL | NULL    |                |
 +----------+------------------+------+-----+---------+----------------+
-4 rows in set (0.016 sec)
+4 rows in set (0.003 sec)
 
 MariaDB [janus]> desc user;
 +---------------+------------------+------+-----+---------------------+----------------+
 | Field         | Type             | Null | Key | Default             | Extra          |
 +---------------+------------------+------+-----+---------------------+----------------+
 | id            | int(10) unsigned | NO   | PRI | NULL                | auto_increment |
-| permissionId  | int(10) unsigned | YES  | MUL | NULL                |                |
-| departmentId  | int(10) unsigned | YES  | MUL | NULL                |                |
-| email         | varchar(30)      | NO   | UNI | NULL                |                |
-| name          | varchar(30)      | NO   |     | NULL                |                |
-| password      | varchar(30)      | NO   |     | NULL                |                |
+| email         | varchar(64)      | NO   | UNI | NULL                |                |
+| name          | varchar(32)      | NO   |     | NULL                |                |
+| password      | varchar(32)      | NO   |     | NULL                |                |
 | createTime    | datetime         | NO   |     | current_timestamp() |                |
 | lastLoginTime | datetime         | NO   |     | current_timestamp() |                |
+| departmentId  | int(10) unsigned | YES  | MUL | NULL                |                |
+| permissionId  | int(10) unsigned | YES  | MUL | NULL                |                |
+| verifyToken   | varchar(36)      | NO   |     | NULL                |                |
+| status        | tinyint(4)       | NO   |     | 1                   |                |
 +---------------+------------------+------+-----+---------------------+----------------+
-8 rows in set (0.014 sec)
+10 rows in set (0.021 sec)
 
 MariaDB [janus]> desc user_place_place;
 +---------+------------------+------+-----+---------+-------+
@@ -107,7 +109,7 @@ MariaDB [janus]> desc user_place_place;
 | userId  | int(10) unsigned | NO   | PRI | NULL    |       |
 | placeId | int(10) unsigned | NO   | PRI | NULL    |       |
 +---------+------------------+------+-----+---------+-------+
-2 rows in set (0.002 sec)
+2 rows in set (0.003 sec)
 ```
 
 ## Todos
