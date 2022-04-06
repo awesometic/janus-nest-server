@@ -24,7 +24,7 @@ export class GetPermissionInfoQueryHandler
       departmentId,
     );
 
-    if (permission === null) {
+    if (permission === undefined) {
       throw new NotFoundException('Permission not found');
     }
 

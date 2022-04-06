@@ -22,7 +22,7 @@ export class GetDepartmentInforByEmailQueryHandler
 
     const department = await this.departmentRepository.findOne(name);
 
-    if (department === null) {
+    if (department === undefined) {
       throw new NotFoundException('Department not found');
     }
 
@@ -50,7 +50,7 @@ export class GetDepartmentInforByIdQueryHandler
 
     const department = await this.departmentRepository.findOneById(id);
 
-    if (department === null) {
+    if (department === undefined) {
       throw new NotFoundException('Department not found');
     }
 

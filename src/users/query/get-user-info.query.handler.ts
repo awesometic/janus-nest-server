@@ -20,7 +20,7 @@ export class GetUserInfoByEmailQueryHandler
 
     const user = await this.userRepository.findOneByEmail(email);
 
-    if (user === null) {
+    if (user === undefined) {
       throw new NotFoundException('User not found');
     }
 
@@ -47,7 +47,7 @@ export class GetUserInfoByIdQueryHandler
 
     const user = await this.userRepository.findOneById(id);
 
-    if (user === null) {
+    if (user === undefined) {
       throw new NotFoundException('User not found');
     }
 

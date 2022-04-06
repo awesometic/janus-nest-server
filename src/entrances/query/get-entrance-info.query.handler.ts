@@ -21,7 +21,7 @@ export class GetEntranceInfoQueryHandler
 
     const entrance = await this.entranceRepository.findOne(id, accessTime);
 
-    if (entrance === null) {
+    if (entrance === undefined) {
       throw new NotFoundException('Entrance not found');
     }
 
@@ -46,7 +46,7 @@ export class GetAllEntranceInfoQueryHandler
 
     const entrances = await this.entranceRepository.findAllByUserId(id);
 
-    if (entrances === null) {
+    if (entrances === undefined) {
       throw new NotFoundException('Entrances not found');
     }
 

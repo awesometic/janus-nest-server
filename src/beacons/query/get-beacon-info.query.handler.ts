@@ -20,7 +20,7 @@ export class GetBeaconInfoQueryHandler
 
     const beacon = await this.beaconRepository.findOneByMacAddr(macAddress);
 
-    if (beacon === null) {
+    if (beacon === undefined) {
       throw new NotFoundException('Beacon not found');
     }
 
@@ -54,7 +54,7 @@ export class GetAllBeaconInfoQueryHandler
       beacons = await this.beaconRepository.findAll();
     }
 
-    if (beacons === null) {
+    if (beacons === undefined) {
       throw new NotFoundException('Beacon not found');
     }
 

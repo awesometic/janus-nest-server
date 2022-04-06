@@ -17,7 +17,7 @@ export class GetPlaceInfoQueryHandler
 
     const place = await this.placeRepository.findOneByName(name);
 
-    if (place === null) {
+    if (place === undefined) {
       throw new NotFoundException('Place not found');
     }
 
