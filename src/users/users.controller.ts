@@ -8,16 +8,26 @@ import {
   Post,
   Query,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { AuthorizationCommand } from 'src/auth/command/authorization.command';
+import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
+import { LocalAuthGuard } from 'src/auth/guard/local.guard';
 import {
   CreateUserCommand,
   UpdateUserCommand,
   RemoveUserCommand,
   VerifyEmailCommand,
 } from './command/user.command';
-import { CreateUserDto, UpdateUserDto, RemoveUserDto } from './dto/user.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  RemoveUserDto,
+  SignInDto,
+  GetProfileDto,
+} from './dto/user.dto';
 import {
   GetUserInfoByEmailQuery,
   GetUserInfoByIdQuery,
@@ -82,6 +92,25 @@ export class UsersController {
     const command = new VerifyEmailCommand(token);
 
     return this.commandBus.execute(command);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/get-profile')
+  async getProfile(@Body() getProfileDto: GetProfileDto) {
+    this.logger.debug(`Get profile ${JSON.stringify(getProfileDto)}`);
+
+    return getProfileDto;
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('/auth/sign-in')
+  async signIn(@Body() signInDto: SignInDto) {
+    this.logger.debug(`Signing-in ${JSON.stringify(signInDto)}`);
+
+    const { email, password } = signInDto;
+    const command = new AuthorizationCommand(email, password);
+
+    return await this.commandBus.execute(command);
   }
 
   @Get()

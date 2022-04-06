@@ -26,6 +26,7 @@ import { UserRepositoryWrapper } from './repository/user.repository';
 import { PermissionRepositoryWrapper } from './repository/permission.repository';
 import { DepartmentRepositoryWrapper } from './repository/department.repository';
 import { EmailSenderService } from 'src/email/email-sender.service';
+import { GetUserInfoByEmailQueryHandler } from './query/get-user-info.query.handler';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { EmailSenderService } from 'src/email/email-sender.service';
     RemoveDepartmentHandler,
     VerifyEmailHandler,
     EmailSenderService,
+    GetUserInfoByEmailQueryHandler,
   ],
 })
 export class UsersModule {}

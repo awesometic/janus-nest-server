@@ -11,6 +11,7 @@ export class GetUserInfoQueryResult {
     public readonly id: number,
     public readonly name: string,
     public readonly email: string,
+    public readonly password: string,
     public readonly department: number,
     public readonly permission: number,
     public readonly places: number[],

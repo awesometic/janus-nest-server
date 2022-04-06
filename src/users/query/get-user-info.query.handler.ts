@@ -28,9 +28,10 @@ export class GetUserInfoByEmailQueryHandler
       id: user.id,
       name: user.name,
       email: user.email,
-      department: user.department.id,
-      permission: user.permission.id,
-      places: user.place.map((place) => place.id),
+      password: user.password,
+      department: user.department?.id,
+      permission: user.permission?.id,
+      places: user.place?.map((place) => place.id),
     };
   }
 }
@@ -54,9 +55,10 @@ export class GetUserInfoByIdQueryHandler
       id: user.id,
       name: user.name,
       email: user.email,
-      department: user.department.id,
-      permission: user.permission.id,
-      places: user.place.map((place) => place.id),
+      password: user.password,
+      department: user.department?.id,
+      permission: user.permission?.id,
+      places: user.place?.map((place) => place.id),
     };
   }
 }

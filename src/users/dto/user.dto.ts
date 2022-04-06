@@ -44,3 +44,11 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {}
 export class RemoveUserDto extends PartialType(
   PickType(CreateUserDto, ['email', 'password']),
 ) {}
+
+export class SignInDto extends PartialType(
+  PickType(CreateUserDto, ['email', 'password']),
+) {}
+
+export class GetProfileDto extends PartialType(
+  PickType(CreateUserDto, ['email']),
+) {}
