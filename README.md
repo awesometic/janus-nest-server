@@ -131,7 +131,12 @@ MariaDB [janus]> desc user_place_place;
 
 - [x] Write an entity relationship diagram for the database
 - [x] Connection between the API server and the database
-- [x] Open some simple Restful API endpoints
+- [ ] Open some simple Restful API endpoints
+  - [x] Implement CRUD for each component
+  - [x] Implement email verifying process
+  - [ ] Implement sign-in, sign-out using passport
+  - [x] Apply CQRS
+  - [ ] Apply Jest
 - [ ] Create a simple mobile app that can send a message to the API server
 - [ ] Detect all the three beacons using the mobile app and send a message to the API server
 - [ ] Implement set a location for the entry point of a place
