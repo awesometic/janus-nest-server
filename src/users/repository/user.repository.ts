@@ -69,7 +69,7 @@ export class UserRepositoryWrapper {
     return (await this.userRepository.findOne({ verifyToken })).status == 0;
   }
 
-  public async verifyUserEmail(verifyToken: string): Promise<User | null> {
+  public async verifyUserEmail(verifyToken: string): Promise<User> {
     const user = await this.findOneByToken(verifyToken);
 
     if (user !== null) {
@@ -80,19 +80,19 @@ export class UserRepositoryWrapper {
     }
   }
 
-  public async findOneByToken(verifyToken: string): Promise<User | null> {
+  public async findOneByToken(verifyToken: string): Promise<User> {
     return await this.userRepository.findOne({ verifyToken });
   }
 
-  public async findOneByEmail(email: string): Promise<User | null> {
+  public async findOneByEmail(email: string): Promise<User> {
     return await this.userRepository.findOne({ email });
   }
 
-  public async findOneById(id: number): Promise<User | null> {
+  public async findOneById(id: number): Promise<User> {
     return await this.userRepository.findOne({ id });
   }
 
-  public async findAll(): Promise<User[] | null> {
+  public async findAll(): Promise<User[]> {
     return await this.userRepository.find();
   }
 }

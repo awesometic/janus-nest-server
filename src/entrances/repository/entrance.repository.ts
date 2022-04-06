@@ -37,22 +37,19 @@ export class EntranceRepositoryWrapper {
     return await this.entranceRepository.remove(entrance);
   }
 
-  public async findOne(
-    userId: number,
-    accessTime: Date,
-  ): Promise<Entrance | null> {
+  public async findOne(userId: number, accessTime: Date): Promise<Entrance> {
     return await this.entranceRepository.findOne({
       where: { user: { id: userId }, accessTime },
     });
   }
 
-  public async findAllByUserId(userId: number): Promise<Entrance[] | null> {
+  public async findAllByUserId(userId: number): Promise<Entrance[]> {
     return await this.entranceRepository.find({
       where: { user: { id: userId } },
     });
   }
 
-  public async findAll(): Promise<Entrance[] | null> {
+  public async findAll(): Promise<Entrance[]> {
     return await this.entranceRepository.find();
   }
 }

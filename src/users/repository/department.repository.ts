@@ -24,11 +24,11 @@ export class DepartmentRepositoryWrapper {
     return await this.departmentRepository.remove(department);
   }
 
-  public async findOne(name: string): Promise<Department | null> {
+  public async findOne(name: string): Promise<Department> {
     return await this.departmentRepository.findOne({ name });
   }
 
-  public async findOneById(id: number): Promise<Department | null> {
+  public async findOneById(id: number): Promise<Department> {
     return await this.departmentRepository.findOne({ id });
   }
 }

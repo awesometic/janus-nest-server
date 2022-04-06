@@ -49,15 +49,15 @@ export class PlaceRepositoryWrapper {
     return await this.placeRepository.remove(place);
   }
 
-  async findOneById(id: number): Promise<Place | null> {
+  async findOneById(id: number): Promise<Place> {
     return await this.placeRepository.findOne({ id: id });
   }
 
-  async findOneByName(name: string): Promise<Place | null> {
+  async findOneByName(name: string): Promise<Place> {
     return await this.placeRepository.findOne({ name: name });
   }
 
-  async findAll(): Promise<Place[] | null> {
+  async findAll(): Promise<Place[]> {
     return await this.placeRepository.find();
   }
 }

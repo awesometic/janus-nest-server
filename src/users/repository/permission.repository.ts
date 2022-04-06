@@ -57,7 +57,7 @@ export class PermissionRepositoryWrapper {
   public async findOne(
     name: string,
     departmentId: number,
-  ): Promise<Permission | null> {
+  ): Promise<Permission> {
     const department = await this.departmentRepositoryWrapper.findOneById(
       departmentId,
     );
@@ -68,7 +68,7 @@ export class PermissionRepositoryWrapper {
     });
   }
 
-  public async findAll(): Promise<Permission[] | null> {
+  public async findAll(): Promise<Permission[]> {
     return await this.permissionRepository.find();
   }
 }
