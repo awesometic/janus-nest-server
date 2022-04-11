@@ -22,3 +22,16 @@ export class RemovePermissionCommand implements ICommand {
     public readonly departmentId: number,
   ) {}
 }
+
+abstract class CommonPermissionCommandResult {
+  permissionId: number;
+  name: string;
+  level: number;
+  departmentId: number;
+}
+
+export type CreatePermissionCommandResult = CommonPermissionCommandResult;
+
+export type UpdatePermissionCommandResult = CommonPermissionCommandResult;
+
+export type RemovePermissionCommandResult = CommonPermissionCommandResult;

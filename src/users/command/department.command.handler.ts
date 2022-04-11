@@ -3,7 +3,9 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DepartmentRepositoryWrapper } from '../repository/department.repository';
 import {
   CreateDepartmentCommand,
+  CreateDepartmentCommandResult,
   RemoveDepartmentCommand,
+  RemoveDepartmentCommandResult,
 } from './department.command';
 
 @Injectable()
@@ -16,8 +18,17 @@ export class CreateDepartmentHandler
     private departmentRepository: DepartmentRepositoryWrapper,
   ) {}
 
-  async execute(command: CreateDepartmentCommand): Promise<any> {
-    return await this.departmentRepository.createDepartment(command.name);
+  async execute(
+    command: CreateDepartmentCommand,
+  ): Promise<CreateDepartmentCommandResult> {
+    const results = await this.departmentRepository.createDepartment(
+      command.name,
+    );
+
+    return {
+      departmentId: results.id,
+      name: results.name,
+    };
   }
 }
 
@@ -31,7 +42,16 @@ export class RemoveDepartmentHandler
     private departmentRepository: DepartmentRepositoryWrapper,
   ) {}
 
-  async execute(command: RemoveDepartmentCommand): Promise<any> {
-    return await this.departmentRepository.removeDepartment(command.name);
+  async execute(
+    command: RemoveDepartmentCommand,
+  ): Promise<RemoveDepartmentCommandResult> {
+    const results = await this.departmentRepository.removeDepartment(
+      command.name,
+    );
+
+    return {
+      departmentId: results.id,
+      name: results.name,
+    };
   }
 }

@@ -5,6 +5,9 @@ import {
   CreatePermissionCommand,
   UpdatePermissionCommand,
   RemovePermissionCommand,
+  CreatePermissionCommandResult,
+  UpdatePermissionCommandResult,
+  RemovePermissionCommandResult,
 } from './permission.command';
 
 @Injectable()
@@ -17,12 +20,21 @@ export class CreatePermissionHandler
     private permissionRepository: PermissionRepositoryWrapper,
   ) {}
 
-  async execute(command: CreatePermissionCommand): Promise<any> {
-    return await this.permissionRepository.createPermission(
+  async execute(
+    command: CreatePermissionCommand,
+  ): Promise<CreatePermissionCommandResult> {
+    const results = await this.permissionRepository.createPermission(
       command.name,
       command.level,
       command.departmentId,
     );
+
+    return {
+      permissionId: results.id,
+      name: results.name,
+      level: results.level,
+      departmentId: results.department.id,
+    };
   }
 }
 
@@ -36,12 +48,21 @@ export class UpdatePermissionHandler
     private permissionRepository: PermissionRepositoryWrapper,
   ) {}
 
-  async execute(command: UpdatePermissionCommand): Promise<any> {
-    return await this.permissionRepository.updatePermission(
+  async execute(
+    command: UpdatePermissionCommand,
+  ): Promise<UpdatePermissionCommandResult> {
+    const results = await this.permissionRepository.updatePermission(
       command.name,
       command.level,
       command.departmentId,
     );
+
+    return {
+      permissionId: results.id,
+      name: results.name,
+      level: results.level,
+      departmentId: results.department.id,
+    };
   }
 }
 
@@ -55,10 +76,19 @@ export class RemovePermissionHandler
     private permissionRepository: PermissionRepositoryWrapper,
   ) {}
 
-  async execute(command: RemovePermissionCommand): Promise<any> {
-    return await this.permissionRepository.removePermission(
+  async execute(
+    command: RemovePermissionCommand,
+  ): Promise<RemovePermissionCommandResult> {
+    const results = await this.permissionRepository.removePermission(
       command.name,
       command.departmentId,
     );
+
+    return {
+      permissionId: results.id,
+      name: results.name,
+      level: results.level,
+      departmentId: results.department.id,
+    };
   }
 }

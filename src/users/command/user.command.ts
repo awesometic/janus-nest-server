@@ -32,3 +32,18 @@ export class RemoveUserCommand implements ICommand {
 export class VerifyEmailCommand implements ICommand {
   constructor(public readonly verifyToken: string) {}
 }
+
+abstract class CommonUserCommandResult {
+  userId: number;
+  email: string;
+}
+
+export type CreateUserCommandResult = CommonUserCommandResult;
+
+export type UpdateUserCommandResult = CommonUserCommandResult;
+
+export type RemoveUserCommandResult = CommonUserCommandResult;
+
+export interface VerifyEmailCommandResult extends CommonUserCommandResult {
+  verifyToken: string;
+}

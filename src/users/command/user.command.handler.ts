@@ -6,8 +6,11 @@ import {
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   CreateUserCommand,
+  CreateUserCommandResult,
   RemoveUserCommand,
+  RemoveUserCommandResult,
   UpdateUserCommand,
+  UpdateUserCommandResult,
   VerifyEmailCommand,
 } from './user.command';
 import * as uuid from 'uuid';
@@ -24,7 +27,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     private emailSenderService: EmailSenderService,
   ) {}
 
-  async execute(command: CreateUserCommand): Promise<any> {
+  async execute(command: CreateUserCommand): Promise<CreateUserCommandResult> {
     const { email, name, password, permission, department } = command;
 
     if (!(await this.userRepository.checkUserExists(email))) {
@@ -34,7 +37,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     const verifyToken = uuid.v1();
 
     // TODO: Will send the results after the email is sent but I want the results of the createUser method
-    const createReturns = await this.userRepository.createUser(
+    const results = await this.userRepository.createUser(
       email,
       name,
       password,
@@ -45,7 +48,10 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
     await this.emailSenderService.sendVerification(email, verifyToken);
 
-    return createReturns;
+    return {
+      userId: results.id,
+      email: results.email,
+    };
   }
 }
 
@@ -57,16 +63,21 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
     private userRepository: UserRepositoryWrapper,
   ) {}
 
-  async execute(command: UpdateUserCommand): Promise<any> {
+  async execute(command: UpdateUserCommand): Promise<UpdateUserCommandResult> {
     const { email, name, password, permission, department } = command;
 
-    return await this.userRepository.updateUser(
+    const results = await this.userRepository.updateUser(
       email,
       name,
       password,
       permission,
       department,
     );
+
+    return {
+      userId: results.id,
+      email: results.email,
+    };
   }
 }
 
@@ -78,10 +89,15 @@ export class RemoveUserHandler implements ICommandHandler<RemoveUserCommand> {
     private userRepository: UserRepositoryWrapper,
   ) {}
 
-  async execute(command: RemoveUserCommand): Promise<any> {
+  async execute(command: RemoveUserCommand): Promise<RemoveUserCommandResult> {
     const { email, password } = command;
 
-    return await this.userRepository.removeUser(email, password);
+    const results = await this.userRepository.removeUser(email, password);
+
+    return {
+      userId: results.id,
+      email: results.email,
+    };
   }
 }
 
@@ -100,6 +116,12 @@ export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
       throw new UnprocessableEntityException('Email already verified');
     }
 
-    return await this.userRepository.verifyUserEmail(verifyToken);
+    const results = await this.userRepository.verifyUserEmail(verifyToken);
+
+    return {
+      userId: results.id,
+      email: results.email,
+      verifyToken: results.verifyToken,
+    };
   }
 }
