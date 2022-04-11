@@ -15,11 +15,11 @@ export class CreatePlaceDto {
 
   @IsNumberString()
   @IsOptional()
-  readonly longitude: number;
+  readonly longitude?: number;
 
   @IsNumberString()
   @IsOptional()
-  readonly latitude: number;
+  readonly latitude?: number;
 }
 
 export class UpdatePlaceDto extends PartialType(CreatePlaceDto) {}

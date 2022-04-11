@@ -32,11 +32,11 @@ export class CreateUserDto {
 
   @IsInt()
   @IsOptional()
-  readonly permission: Permission;
+  readonly permission?: Permission;
 
   @IsInt()
   @IsOptional()
-  readonly department: Department;
+  readonly department?: Department;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

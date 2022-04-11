@@ -10,7 +10,7 @@ export class CreatePermissionDto {
 
   @IsInt()
   @IsOptional()
-  readonly level: number;
+  readonly level?: number;
 
   @IsInt()
   readonly departmentId: number;

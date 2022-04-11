@@ -25,11 +25,11 @@ export class CreateBeaconDto {
 
   @IsInt()
   @IsOptional()
-  readonly threshold: number;
+  readonly threshold?: number;
 
   @IsInt()
   @IsOptional()
-  readonly placeId: number;
+  readonly placeId?: number;
 }
 
 export class UpdateBeaconDto extends PartialType(CreateBeaconDto) {}
