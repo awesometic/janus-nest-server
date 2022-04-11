@@ -9,7 +9,7 @@ import { PlacesModule } from './places/places.module';
 import { BeaconsModule } from './beacons/beacons.module';
 import { EntrancesModule } from './entrances/entrances.module';
 import {
-  utilities as nestWinstonModuleUtilieis,
+  utilities as nestWinstonModuleUtilities,
   WinstonModule,
 } from 'nest-winston';
 import * as winston from 'winston';
@@ -33,7 +33,7 @@ import { AuthModule } from './auth/auth.module';
           level: process.env.NODE_ENV === 'production' ? 'info' : 'silly',
           format: winston.format.combine(
             winston.format.timestamp(),
-            nestWinstonModuleUtilieis.format.nestLike('App', {
+            nestWinstonModuleUtilities.format.nestLike('App', {
               prettyPrint: true,
             }),
           ),
