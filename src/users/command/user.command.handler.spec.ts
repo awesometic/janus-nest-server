@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmailSenderService } from 'src/email/email-sender.service';
+import { UserStatus } from '../constants';
 import { UserRepositoryWrapper } from '../repository/user.repository';
 import {
   CreateUserCommand,
@@ -85,7 +86,7 @@ describe('UserCommandHandler', () => {
                   name: name,
                   password: password,
                   verifyToken: verifyToken,
-                  status: 1,
+                  status: UserStatus.Inactive,
                 });
 
                 return {
@@ -118,11 +119,12 @@ describe('UserCommandHandler', () => {
               .fn()
               .mockImplementation(
                 (verifyToken) =>
-                  verifyToken == mockUser.verifyToken && mockUser.status == 0,
+                  verifyToken == mockUser.verifyToken &&
+                  mockUser.status == UserStatus.Active,
               ),
             verifyUserEmail: jest.fn().mockImplementation((verifyToken) => {
               if (verifyToken == mockUser.verifyToken) {
-                mockUser.status = 0;
+                mockUser.status = UserStatus.Active;
               }
 
               return {
@@ -193,7 +195,7 @@ describe('UserCommandHandler', () => {
       );
 
       expect(executeResults).toEqual(commandResults);
-      expect(mockUser.status).toEqual(0);
+      expect(mockUser.status).toEqual(UserStatus.Active);
     });
   });
 

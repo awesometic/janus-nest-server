@@ -9,6 +9,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { UserStatus } from '../constants';
 import { Department } from './department.entity';
 import { Permission } from './permission.entity';
 
@@ -68,14 +69,9 @@ export class User {
   })
   verifyToken: string;
 
-  /*
-   * Status 0 - Active
-   * Status 1 - Inactive
-   * Status 2 - Blocked
-   */
   @Column({
     type: 'tinyint',
-    default: 1,
+    default: UserStatus.Inactive,
   })
   status: number;
 }

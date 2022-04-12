@@ -1,6 +1,7 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserStatus } from '../constants';
 import { Department } from '../entities/department.entity';
 import { Permission } from '../entities/permission.entity';
 import { User } from '../entities/user.entity';
@@ -65,15 +66,17 @@ export class UserRepositoryWrapper {
   }
 
   public async checkUserVerified(verifyToken: string): Promise<boolean> {
-    // TODO: 0 means active/verified, but also means not blocked or at another condition
-    return (await this.userRepository.findOne({ verifyToken })).status == 0;
+    return (
+      (await this.userRepository.findOne({ verifyToken })).status ==
+      UserStatus.Active
+    );
   }
 
   public async verifyUserEmail(verifyToken: string): Promise<User> {
     const user = await this.findOneByToken(verifyToken);
 
     if (user !== null) {
-      user.status = 0;
+      user.status = UserStatus.Active;
       return await this.userRepository.save(user);
     } else {
       throw new UnprocessableEntityException('User not found');
