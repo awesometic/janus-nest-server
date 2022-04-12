@@ -136,7 +136,7 @@ MariaDB [janus]> desc user_place_place;
   - [x] Implement email verifying process
   - [ ] Implement sign-in, sign-out using passport
   - [x] Apply CQRS
-  - [ ] Apply Jest
+  - [x] Apply Jest, partly :sweat_smile:
 - [ ] Create a simple mobile app that can send a message to the API server
 - [ ] Detect all the three beacons using the mobile app and send a message to the API server
 - [ ] Implement set a location for the entry point of a place
