@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection } from 'typeorm';
 import { PlacesModule } from './places/places.module';
 import { BeaconsModule } from './beacons/beacons.module';
 import { EntrancesModule } from './entrances/entrances.module';
@@ -50,9 +47,7 @@ import { AuthModule } from './auth/auth.module';
     EmailModule,
     AuthModule,
   ],
-  controllers: [AppController, HealthCheckController],
-  providers: [AppService],
+  controllers: [HealthCheckController],
+  providers: [],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}
