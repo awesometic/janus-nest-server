@@ -115,7 +115,7 @@ export class UsersController {
 
   @Get()
   getUserInfo(@Request() req): Promise<GetUserInfoQueryResult> {
-    const email = req.uesr.email || null;
+    const email = req.user.email || null;
     const id = req.user.id || null;
 
     if (!(email || id)) {
