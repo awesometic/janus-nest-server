@@ -18,9 +18,7 @@ export class EmailSenderService {
   }
 
   async sendVerification(emailAddress: string, signUpVerifyToken: string) {
-    const baseUrl = 'http://localhost:3000';
-
-    const url = `${baseUrl}/users/email-verification`;
+    const verificationUrl = `${process.env.SERVICE_URL}/users/email-verification`;
 
     const mailOptions: EmailOptions = {
       from: process.env.EMAIL_USER,
@@ -30,7 +28,7 @@ export class EmailSenderService {
         <div>
           <p>Please click the following link to verify your email address:</p>
           <br/>
-          <form action="${url}" method="GET">
+          <form action="${verificationUrl}" method="GET">
             <input type="hidden" name="token" value="${signUpVerifyToken}"/>
             <input type="submit" value="Verify">
           </form>
