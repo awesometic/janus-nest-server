@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -9,7 +10,7 @@ import { Department } from './department.entity';
 import { User } from './user.entity';
 
 @Entity()
-export class Permission {
+export class Permission extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,

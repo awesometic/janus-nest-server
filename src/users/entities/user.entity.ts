@@ -8,13 +8,14 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  BaseEntity,
 } from 'typeorm';
 import { UserStatus } from '../constants';
 import { Department } from './department.entity';
 import { Permission } from './permission.entity';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,

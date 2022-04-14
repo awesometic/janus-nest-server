@@ -1,8 +1,14 @@
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Entrance {
+export class Entrance extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,

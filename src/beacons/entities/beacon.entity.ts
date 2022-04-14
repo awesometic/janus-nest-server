@@ -1,8 +1,14 @@
 import { Place } from 'src/places/entities/place.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Beacon {
+export class Beacon extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,

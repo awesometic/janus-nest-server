@@ -1,9 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Permission } from './permission.entity';
 import { User } from './user.entity';
 
 @Entity()
-export class Department {
+export class Department extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,

@@ -1,9 +1,15 @@
 import { Point } from 'geojson';
 import { Beacon } from 'src/beacons/entities/beacon.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Place {
+export class Place extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
     unsigned: true,
