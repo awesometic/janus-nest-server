@@ -2,7 +2,7 @@ import { AdminModule } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/typeorm';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import AdminJS from 'adminjs';
+import AdminJS, { CurrentAdmin } from 'adminjs';
 import { validate } from 'class-validator';
 import { Beacon } from 'src/beacons/entities/beacon.entity';
 import { Entrance } from 'src/entrances/entities/entrance.entity';
@@ -29,6 +29,24 @@ AdminJS.registerAdapter({ Database, Resource });
         adminJsOptions: {
           rootPath: '/admin',
           resources: [User, Department, Permission, Place, Entrance, Beacon],
+        },
+        auth: {
+          authenticate: async (email, password) => {
+            const user = await User.findOne({ where: { email } });
+            const signedInAdmin: CurrentAdmin = {
+              id: user.id.toString(),
+              email: user.email,
+            };
+
+            if (!user || user.password !== password) {
+              // Just returning null notifies the user that the credentials are invalid
+              return null;
+            }
+
+            return signedInAdmin;
+          },
+          cookieName: 'adminjs',
+          cookiePassword: 'adminjs',
         },
       }),
     }),
