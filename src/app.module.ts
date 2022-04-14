@@ -16,6 +16,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
 import { EmailModule } from './email/email.module';
 import { AuthModule } from './auth/auth.module';
+import { AdminJsModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
         }),
       ],
     }),
+    AdminJsModule,
     TerminusModule,
     HttpModule,
     ExceptionModule,
