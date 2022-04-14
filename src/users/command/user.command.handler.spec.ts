@@ -1,5 +1,5 @@
+import { EventBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
-import { EmailSenderService } from 'src/email/email-sender.service';
 import { UserStatus } from '../constants';
 import { UserRepositoryWrapper } from '../repository/user.repository';
 import {
@@ -57,7 +57,6 @@ describe('UserCommandHandler', () => {
   let removeUserHandler: RemoveUserHandler;
   let verifyEmailHandler: VerifyEmailHandler;
   let userRepositoryWrapper: UserRepositoryWrapper;
-  let emailSenderService: EmailSenderService;
 
   let mockUser: MockUser;
   const userId = 1;
@@ -74,6 +73,12 @@ describe('UserCommandHandler', () => {
         UpdateUserHandler,
         RemoveUserHandler,
         VerifyEmailHandler,
+        {
+          provide: EventBus,
+          useValue: {
+            publish: jest.fn(),
+          },
+        },
         {
           provide: UserRepositoryWrapper,
           useValue: {
@@ -135,12 +140,6 @@ describe('UserCommandHandler', () => {
             }),
           },
         },
-        {
-          provide: EmailSenderService,
-          useValue: {
-            sendVerification: jest.fn().mockReturnValue(true),
-          },
-        },
       ],
     }).compile();
 
@@ -151,7 +150,6 @@ describe('UserCommandHandler', () => {
     userRepositoryWrapper = module.get<UserRepositoryWrapper>(
       UserRepositoryWrapper,
     );
-    emailSenderService = module.get<EmailSenderService>(EmailSenderService);
   });
 
   describe('createUser', () => {

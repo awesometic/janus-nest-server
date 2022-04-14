@@ -3,7 +3,7 @@ import {
   Injectable,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import {
   CreateUserCommand,
   CreateUserCommandResult,
@@ -15,7 +15,7 @@ import {
 } from './user.command';
 import * as uuid from 'uuid';
 import { UserRepositoryWrapper } from '../repository/user.repository';
-import { EmailSenderService } from 'src/email/email-sender.service';
+import { UserCreated } from '../event/user.created';
 
 @Injectable()
 @CommandHandler(CreateUserCommand)
@@ -23,8 +23,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
     @Inject(UserRepositoryWrapper)
     private userRepository: UserRepositoryWrapper,
-    @Inject(EmailSenderService)
-    private emailSenderService: EmailSenderService,
+    private eventBus: EventBus,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserCommandResult> {
@@ -46,7 +45,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       verifyToken,
     );
 
-    await this.emailSenderService.sendVerification(email, verifyToken);
+    this.eventBus.publish(new UserCreated(email, verifyToken));
 
     return {
       userId: results.id,
