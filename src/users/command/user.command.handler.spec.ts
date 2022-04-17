@@ -56,7 +56,6 @@ describe('UserCommandHandler', () => {
   let updateUserHandler: UpdateUserHandler;
   let removeUserHandler: RemoveUserHandler;
   let verifyEmailHandler: VerifyEmailHandler;
-  let userRepositoryWrapper: UserRepositoryWrapper;
 
   let mockUser: MockUser;
   const userId = 1;
@@ -147,9 +146,6 @@ describe('UserCommandHandler', () => {
     updateUserHandler = module.get<UpdateUserHandler>(UpdateUserHandler);
     removeUserHandler = module.get<RemoveUserHandler>(RemoveUserHandler);
     verifyEmailHandler = module.get<VerifyEmailHandler>(VerifyEmailHandler);
-    userRepositoryWrapper = module.get<UserRepositoryWrapper>(
-      UserRepositoryWrapper,
-    );
   });
 
   describe('createUser', () => {
