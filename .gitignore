@@ -230,3 +230,7 @@ public/*
 
 # I only use yarn for the package management
 package-lock.json
+
+# Caches from Yarn 2 is too heavy
+# Cloudflare proxy limits upload data size, it has to be under 100 MB
+.yarn/cache
