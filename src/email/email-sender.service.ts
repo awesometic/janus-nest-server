@@ -7,14 +7,16 @@ import { EmailOptions } from './EmailOptions';
 export class EmailSenderService {
   private transporter: Mail;
 
-  constructor() {
-    this.transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
+  constructor(transporter?: Mail) {
+    this.transporter =
+      transporter ||
+      nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      });
   }
 
   async sendVerification(emailAddress: string, signUpVerifyToken: string) {
