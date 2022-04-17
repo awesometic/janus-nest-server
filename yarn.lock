@@ -6875,6 +6875,7 @@ __metadata:
     typescript: ^4.4.4
     uuid: ^8.3.2
     winston: ^3.6.0
+    yarn-upgrade-all: ^0.7.1
   languageName: unknown
   linkType: soft
 
@@ -11472,6 +11473,15 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.0.0
   checksum: e9012322870d7e4e912a6ae1f63b203e365f911c0cf158be92c36edefddfb3bd38ce17eb9ef0d18858a4777f047c50589ea22dacb44bd949169ba37dc6d34bee
+  languageName: node
+  linkType: hard
+
+"yarn-upgrade-all@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "yarn-upgrade-all@npm:0.7.1"
+  bin:
+    yarn-upgrade-all: build/index.js
+  checksum: 87168957082306d51825ccfc84fda9d4022e3b522aa4cee7730abc8675980612a36aba0f9516b32f660dcde7e15e8961bd9de14924e29cd01e2b8e7c2bcf5176
   languageName: node
   linkType: hard
 
