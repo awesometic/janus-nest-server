@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 import Mail from 'nodemailer/lib/mailer';
 import * as nodemailer from 'nodemailer';
 import { EmailOptions } from './EmailOptions';
@@ -7,7 +7,7 @@ import { EmailOptions } from './EmailOptions';
 export class EmailSenderService {
   private transporter: Mail;
 
-  constructor(transporter?: Mail) {
+  constructor(@Optional() transporter?: Mail) {
     this.transporter =
       transporter ||
       nodemailer.createTransport({
