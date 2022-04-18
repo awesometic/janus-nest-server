@@ -8,6 +8,30 @@ If a detecting device enters a location that the beacons are placed at least thr
 
 The detecting device, a mobile phone generally, sends every entrance and exit log to the server and the server gathers all of the data and can provide them the useable information via its website or the mobile app.
 
+## How to run this project
+
+Simply, with the modern Node.js environment you can run and test this project.
+
+### Install the dependencies
+
+```bash
+yarn install && npm install --no-package-lock --no-save @adminjs/express
+```
+
+### Run it
+
+```bash
+yarn start:dev
+```
+
+## Contributing
+
+If you want to make a commit, you have to do preparing the husky scripts by using the following command.
+
+```bash
+yarn prepare
+```
+
 ## Database Entity Relationship Diagram
 
 > This ERD figure is needed to be edit, by the TypeORM generates
