@@ -1,0 +1,38 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Supports Node.js 16 LTS and the latest one, 17, as of today
+        node-version: [lts/gallium, 17]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install packages using yarn
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          # will run `yarn install` command, and install @adminjs/express using npm
+          cmd: install && npm install --no-package-lock --no-save @adminjs/express 
+
+      - name: Build Node.js project
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build # will run `yarn build` command
+
+      - name: Run test and shows me a test coverage report
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: test:cov # will run `yarn test:cov` command
