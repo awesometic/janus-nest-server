@@ -1,6 +1,7 @@
 import {
   Inject,
   Injectable,
+  LoggerService,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
@@ -16,6 +17,7 @@ import {
 import * as uuid from 'uuid';
 import { UserRepositoryWrapper } from '../repository/user.repository';
 import { UserCreated } from '../event/user.created';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 @Injectable()
 @CommandHandler(CreateUserCommand)
@@ -24,6 +26,8 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     @Inject(UserRepositoryWrapper)
     private userRepository: UserRepositoryWrapper,
     private eventBus: EventBus,
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: LoggerService,
   ) {}
 
   async execute(command: CreateUserCommand): Promise<CreateUserCommandResult> {
@@ -45,7 +49,12 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       verifyToken,
     );
 
-    this.eventBus.publish(new UserCreated(email, verifyToken));
+    if (email === process.env.TEST_USER_EMAIL) {
+      // Do not send a veification email if the email account name is one for the test
+      this.logger.debug('Skipping verification email for test user');
+    } else {
+      this.eventBus.publish(new UserCreated(email, verifyToken));
+    }
 
     return {
       userId: results.id,
