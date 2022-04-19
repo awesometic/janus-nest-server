@@ -42,6 +42,10 @@ export class UserRepositoryWrapper {
   ): Promise<User> {
     const user = await this.findOneByEmail(email);
 
+    if (!user) {
+      throw new UnprocessableEntityException('User not found');
+    }
+
     user.email = email;
     user.name = name;
     user.password = password;
@@ -53,6 +57,10 @@ export class UserRepositoryWrapper {
 
   public async removeUser(email: string, password: string): Promise<User> {
     const user = await this.findOneByEmail(email);
+
+    if (!user) {
+      throw new UnprocessableEntityException('User not found');
+    }
 
     if (user.password == password) {
       return await this.userRepository.remove(user);
