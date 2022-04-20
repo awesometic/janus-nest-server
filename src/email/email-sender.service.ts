@@ -20,7 +20,7 @@ export class EmailSenderService {
   }
 
   async sendVerification(emailAddress: string, signUpVerifyToken: string) {
-    const verificationUrl = `${process.env.SERVICE_URL}/users/email-verification`;
+    const verificationUrl = `${process.env.SERVICE_URL}/users/auth/email-verification`;
 
     const mailOptions: EmailOptions = {
       from: process.env.EMAIL_USER,

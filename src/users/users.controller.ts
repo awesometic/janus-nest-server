@@ -85,7 +85,7 @@ export class UsersController {
     return this.commandBus.execute(command);
   }
 
-  @Get('/email-verification')
+  @Get('/auth/email-verification')
   async verifyEmail(@Query('token') token: string) {
     this.logger.debug(`Verifying token ${token}`);
 
