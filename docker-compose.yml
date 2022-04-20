@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  janus-mariadb:
+    image: linuxserver/mariadb
+    container_name: janus-mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Seoul
+      - MYSQL_ROOT_PASSWORD=janus # You should edit this
+      - MYSQL_DATABASE=janus # You should edit this
+      - MYSQL_USER=janus # You should edit this
+      - MYSQL_PASSWORD=janus # You should edit this
+    volumes:
+      - $HOME/docker/janus-mariadb:/config # You may want to edit this
+    ports:
+      - 3306:3306 # You may want to edit this
+    networks:
+      - janus-network
+    restart: unless-stopped
+
+  janus-nest:
+    build: .
+    container_name: janus-nest
+    environment:
+      - TARGET_UID=1000
+      - TARGET_GID=1000
+      - RUN_MODE=development
+    volumes:
+      - $HOME/docker/janus-nest:/janus # You may want to edit this
+    ports:
+      - 3000:3000 # You may want to edit this
+    networks:
+      - janus-network
+    restart: unless-stopped
+
+networks:
+  janus-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
