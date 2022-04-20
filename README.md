@@ -177,3 +177,7 @@ It was working very well as our team expected and I thought that it'd be so inte
 I believe it can be a really good chance to study modern **Node.js** with **NestJS**, **Typescript (ES6+)** and **TypeORM**. :smile:
 
 This project is made just **for fun**. Hope I would finish this big project again.
+
+## License
+
+This project is licensed under the [MIT license](/LICENSE).
