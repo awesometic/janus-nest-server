@@ -1,5 +1,7 @@
 import { EventBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
 import { UserStatus } from '../constants';
 import { UserRepositoryWrapper } from '../repository/user.repository';
 import {
@@ -67,6 +69,19 @@ describe('UserCommandHandler', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        WinstonModule.forRoot({
+          transports: [
+            new winston.transports.Console({
+              level: 'debug',
+              format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple(),
+              ),
+            }),
+          ],
+        }),
+      ],
       providers: [
         CreateUserHandler,
         UpdateUserHandler,
