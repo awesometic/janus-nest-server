@@ -63,8 +63,12 @@ export class PermissionRepositoryWrapper {
     );
 
     return await this.permissionRepository.findOne({
-      name,
-      department,
+      where: {
+        name: name,
+        department: {
+          id: department.id,
+        },
+      },
     });
   }
 

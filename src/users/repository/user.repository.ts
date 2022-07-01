@@ -75,7 +75,7 @@ export class UserRepositoryWrapper {
 
   public async checkUserVerified(verifyToken: string): Promise<boolean> {
     return (
-      (await this.userRepository.findOne({ verifyToken })).status ==
+      (await this.userRepository.findOne({ where: { verifyToken } })).status ==
       UserStatus.Active
     );
   }
@@ -92,15 +92,15 @@ export class UserRepositoryWrapper {
   }
 
   public async findOneByToken(verifyToken: string): Promise<User> {
-    return await this.userRepository.findOne({ verifyToken });
+    return await this.userRepository.findOne({ where: { verifyToken } });
   }
 
   public async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({ email });
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   public async findOneById(id: number): Promise<User> {
-    return await this.userRepository.findOne({ id });
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   public async findAll(): Promise<User[]> {

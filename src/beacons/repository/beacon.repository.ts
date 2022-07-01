@@ -53,7 +53,7 @@ export class BeaconRepositoryWrapper {
   }
 
   public async findOneByMacAddr(macAddress: string): Promise<Beacon> {
-    return await this.beaconRepository.findOne({ macAddress: macAddress });
+    return await this.beaconRepository.findOne({ where: { macAddress } });
   }
 
   public async findAllByPlaceId(placeId: number): Promise<Beacon[]> {

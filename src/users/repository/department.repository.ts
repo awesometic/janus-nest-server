@@ -25,10 +25,10 @@ export class DepartmentRepositoryWrapper {
   }
 
   public async findOne(name: string): Promise<Department> {
-    return await this.departmentRepository.findOne({ name });
+    return await this.departmentRepository.findOne({ where: { name } });
   }
 
   public async findOneById(id: number): Promise<Department> {
-    return await this.departmentRepository.findOne({ id });
+    return await this.departmentRepository.findOne({ where: { id } });
   }
 }

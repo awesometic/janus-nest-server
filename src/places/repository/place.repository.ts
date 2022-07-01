@@ -50,11 +50,11 @@ export class PlaceRepositoryWrapper {
   }
 
   async findOneById(id: number): Promise<Place> {
-    return await this.placeRepository.findOne({ id: id });
+    return await this.placeRepository.findOne({ where: { id } });
   }
 
   async findOneByName(name: string): Promise<Place> {
-    return await this.placeRepository.findOne({ name: name });
+    return await this.placeRepository.findOne({ where: { name } });
   }
 
   async findAll(): Promise<Place[]> {
