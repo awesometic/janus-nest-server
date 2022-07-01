@@ -7,7 +7,7 @@ msg() {
 msg "Starting Janus Docker..."
 
 export DB_HOST_NAME=janus-mariadb
-export DB_HOST_PORT=33061
+export DB_HOST_PORT=3306
 export DB_SYNCHRONIZE=true
 
 msg "Running in development mode..."

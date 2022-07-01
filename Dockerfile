@@ -3,7 +3,7 @@ FROM node:16-alpine3.16
 RUN apk add --no-cache \
     bash bash-completion git
 
-COPY config/run.sh /run.sh
+COPY docker/run.sh /run.sh
 RUN chmod +x /run.sh
 
 WORKDIR /app
