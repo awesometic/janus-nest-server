@@ -234,3 +234,6 @@ package-lock.json
 # Caches from Yarn 2 is too heavy
 # Cloudflare proxy limits upload data size, it has to be under 100 MB
 .yarn/cache
+
+# MariaDB data files for the local test use
+data/mariadb
