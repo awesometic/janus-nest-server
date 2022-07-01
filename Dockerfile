@@ -1,20 +1,15 @@
-FROM node:current-alpine3.15
-LABEL maintainer="Deokgyu Yang <secugyu@gmail.com>" \
-      description="Janus Project container based on Alpine Linux"
+FROM node:16-alpine3.16
 
 RUN apk add --no-cache \
-    bash bash-completion supervisor git
+    bash bash-completion git
 
-ENV TARGET_UID=1000
-ENV TARGET_GID=1000
-ENV RUN_MODE='development'
+COPY config/run.sh /run.sh
+RUN chmod +x /run.sh
 
-ADD config/init.sh /
-ADD config/run.sh /
-RUN chmod a+x /init.sh /run.sh
+WORKDIR /app
+RUN \
+    yarn install && \
+    npm install --no-package-lock --no-save @adminjs/express
 
-COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-EXPOSE 80
-VOLUME [ "/janus" ]
-ENTRYPOINT [ "/init.sh" ]
+EXPOSE 3000
+ENTRYPOINT [ "/run.sh" ]
