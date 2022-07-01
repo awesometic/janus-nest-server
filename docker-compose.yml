@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/app
     ports:
-      - 3001:3000
+      - 30001:3000
     networks:
       - default
     depends_on:
@@ -28,7 +28,7 @@ services:
     volumes:
       - ./data/mariadb:/config # You may want to edit this
     ports:
-      - 3306:3306 # You may want to edit this
+      - 33061:3306 # You may want to edit this
     networks:
       - default
     restart: unless-stopped
