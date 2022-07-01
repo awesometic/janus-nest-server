@@ -1,0 +1,14 @@
+default:
+  image: node:16-alpine
+  before_script:
+    - yarn install && npm install --no-package-lock --no-save @adminjs/express
+
+stages:
+  - test
+
+test-unit:
+  stage: test
+  rules:
+    - if: '"$CI_COMMIT_BRANCH" == "main"'
+  script:
+    - yarn test
