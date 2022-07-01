@@ -17,6 +17,7 @@ import { HttpModule } from '@nestjs/axios';
 import { EmailModule } from './email/email.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminJsModule } from './admin/admin.module';
+import { DatabaseModule } from './database.module';
 
 @Module({
   imports: [
@@ -24,7 +25,6 @@ import { AdminJsModule } from './admin/admin.module';
       // There's no other configs under initial development
       envFilePath: ['.env.development.local'],
     }),
-    TypeOrmModule.forRoot(),
     WinstonModule.forRoot({
       transports: [
         new winston.transports.Console({
@@ -38,6 +38,7 @@ import { AdminJsModule } from './admin/admin.module';
         }),
       ],
     }),
+    DatabaseModule,
     AdminJsModule,
     TerminusModule,
     HttpModule,
